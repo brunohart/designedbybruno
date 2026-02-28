@@ -1,0 +1,605 @@
+/* ─── Craft Page — "The Feel of Things" ─── */
+
+/* ─── Hero ─── */
+.craft-hero {
+  padding-top: calc(var(--space-5xl) + var(--space-xl));
+  padding-inline: var(--gutter);
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-bottom: var(--space-4xl);
+  position: relative;
+}
+
+.craft-hero__title {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  font-weight: 700;
+  line-height: var(--leading-tight);
+  letter-spacing: -0.04em;
+  margin-bottom: var(--space-xl);
+  position: relative;
+}
+
+/* Misregistered ghost — same technique as hero__name */
+.craft-hero__title::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 3px;
+  left: 5px;
+  color: var(--orange);
+  opacity: 0.08;
+  z-index: -1;
+  white-space: pre-line;
+}
+
+.craft-hero__title .accent {
+  color: var(--orange);
+}
+
+.craft-hero__lede {
+  font-size: var(--text-lg);
+  line-height: var(--leading-normal);
+  max-width: var(--container-narrow);
+  opacity: 0.85;
+}
+
+/* ─── Act Sections ─── */
+.craft-act {
+  position: relative;
+  padding-block: var(--space-4xl);
+  padding-inline: var(--gutter);
+  max-width: var(--container-max);
+  margin-inline: auto;
+}
+
+.craft-act__header {
+  margin-bottom: var(--space-2xl);
+}
+
+.craft-act__title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
+  margin-top: var(--space-md);
+  margin-bottom: var(--space-xs);
+}
+
+.craft-act__subtitle {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.craft-act__intro {
+  font-size: var(--text-lg);
+  line-height: var(--leading-normal);
+  max-width: var(--container-narrow);
+  margin-bottom: var(--space-3xl);
+}
+
+/* ─── Pillar Articles ─── */
+.craft-pillar {
+  margin-bottom: var(--space-5xl);
+}
+
+.craft-pillar__number {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  padding: var(--space-xs) var(--space-sm);
+  border: 1.5px solid rgba(26, 26, 26, 0.15);
+  display: inline-block;
+  margin-bottom: var(--space-xl);
+  transform: rotate(-0.8deg);
+}
+
+.craft-pillar__title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+  margin-bottom: var(--space-lg);
+}
+
+.craft-pillar__essay {
+  max-width: var(--container-narrow);
+  margin-bottom: var(--space-2xl);
+}
+
+.craft-pillar__essay p {
+  margin-bottom: var(--space-lg);
+  line-height: var(--leading-normal);
+}
+
+.craft-pillar__essay p:last-child {
+  margin-bottom: 0;
+}
+
+/* ─── Demo Containers ─── */
+.craft-demo {
+  background-color: var(--cream);
+  border-radius: var(--radius-md);
+  padding: var(--space-2xl);
+  position: relative;
+  box-shadow: inset 0 2px 8px rgba(26, 26, 26, 0.04);
+  border: 1px solid rgba(26, 26, 26, 0.05);
+}
+
+.craft-demo__canvas {
+  width: 100%;
+  height: 320px;
+  display: block;
+  border-radius: var(--radius-sm);
+  cursor: crosshair;
+}
+
+.craft-demo__controls {
+  margin-top: var(--space-lg);
+  max-width: 360px;
+}
+
+.craft-demo__label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.craft-demo__label span {
+  flex-shrink: 0;
+  min-width: 120px;
+}
+
+.craft-demo__slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 3px;
+  background: rgba(26, 26, 26, 0.15);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+.craft-demo__slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--ink);
+  cursor: pointer;
+  transition: transform var(--duration-fast) var(--ease-spring);
+}
+
+.craft-demo__slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.craft-demo__slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--ink);
+  border: none;
+  cursor: pointer;
+}
+
+.craft-demo__temp-labels {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--space-xs);
+  letter-spacing: var(--tracking-mono);
+}
+
+.craft-demo__caption {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--space-lg);
+  letter-spacing: var(--tracking-mono);
+  line-height: var(--leading-normal);
+}
+
+/* ─── Demo: Warmth Card ─── */
+.craft-demo__warmth {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-2xl) 0;
+}
+
+.warmth-card {
+  width: 280px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: background-color 0.4s ease, box-shadow 0.4s ease;
+  box-shadow: 0 4px 20px rgba(26, 26, 26, 0.08);
+}
+
+.warmth-card__image {
+  height: 160px;
+  transition: background-color 0.4s ease;
+}
+
+.warmth-card__body {
+  padding: var(--space-lg);
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.warmth-card__title {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  margin-bottom: var(--space-xs);
+  transition: color 0.4s ease;
+}
+
+.warmth-card__text {
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+  margin-bottom: var(--space-sm);
+  transition: color 0.4s ease;
+}
+
+.warmth-card__meta {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  transition: color 0.4s ease;
+}
+
+/* ─── Demo: Weight Objects ─── */
+.craft-demo__weight {
+  display: flex;
+  gap: var(--space-2xl);
+  justify-content: center;
+  align-items: center;
+  min-height: 280px;
+  position: relative;
+}
+
+.weight-object {
+  width: 140px;
+  height: 140px;
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  transition: box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.weight-object:active {
+  cursor: grabbing;
+}
+
+.weight-object--heavy {
+  background-color: var(--ink);
+  color: var(--white);
+  box-shadow: 0 6px 24px rgba(26, 26, 26, 0.2);
+}
+
+.weight-object--light {
+  background-color: var(--white);
+  color: var(--ink);
+  border: 1.5px solid rgba(26, 26, 26, 0.12);
+  box-shadow: 0 2px 8px rgba(26, 26, 26, 0.06);
+}
+
+.weight-object__label {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+}
+
+.weight-object__desc {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-top: var(--space-xs);
+  text-align: center;
+  max-width: 110px;
+}
+
+/* ─── Demo: Friction ─── */
+.craft-demo__friction {
+  padding: var(--space-3xl) var(--space-xl);
+}
+
+.friction-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(26, 26, 26, 0.1);
+  border-radius: 2px;
+  position: relative;
+}
+
+.friction-handle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--ink);
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(0, -50%);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  box-shadow: 0 3px 12px rgba(26, 26, 26, 0.15);
+  transition: box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.friction-handle:active {
+  cursor: grabbing;
+  box-shadow: 0 6px 20px rgba(26, 26, 26, 0.25);
+}
+
+/* ─── Demo: Fluid ─── */
+/* Uses canvas — no additional styles needed beyond .craft-demo__canvas */
+
+/* ─── Demo: Tactility ─── */
+.craft-demo__tactility {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xl);
+  padding: var(--space-3xl) 0;
+}
+
+.tactile-button {
+  width: 200px;
+  height: 64px;
+  border: none;
+  border-radius: var(--radius-md);
+  background-color: var(--ink);
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  box-shadow: 0 6px 0 rgba(26, 26, 26, 0.3), 0 8px 20px rgba(26, 26, 26, 0.12);
+}
+
+.tactile-feedback {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  min-height: 1.5em;
+}
+
+/* ─── Demo: Resistance ─── */
+.craft-demo__resistance {
+  padding: var(--space-3xl) var(--space-xl);
+}
+
+.resistance-track {
+  width: 100%;
+  height: 64px;
+  background: rgba(26, 26, 26, 0.04);
+  border-radius: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.resistance-element {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: calc(50% - 8px);
+  height: calc(100% - 8px);
+  border-radius: 28px;
+  background: var(--ink);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  transition: background-color var(--duration-fast) var(--ease-out);
+}
+
+.resistance-element:active {
+  cursor: grabbing;
+}
+
+.resistance-element__icon {
+  font-size: var(--text-base);
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.resistance-threshold {
+  position: absolute;
+  top: 0;
+  right: 20%;
+  width: 2px;
+  height: 100%;
+  background: var(--orange);
+  opacity: 0.3;
+}
+
+.resistance-status {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  text-align: center;
+  margin-top: var(--space-md);
+  min-height: 1.5em;
+}
+
+/* ─── Demo: Silence ─── */
+.craft-demo__silence {
+  padding: var(--space-xl) 0;
+}
+
+.silence-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2xl);
+  margin-bottom: var(--space-xl);
+}
+
+.silence-column__label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-md);
+}
+
+.silence-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.silence-block {
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--ink);
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.silence-play {
+  display: block;
+  margin-inline: auto;
+  padding: var(--space-sm) var(--space-xl);
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.silence-play:hover {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+/* ─── Closing Section ─── */
+.craft-closing {
+  padding-block: var(--space-5xl);
+  padding-inline: var(--gutter);
+  max-width: var(--container-max);
+  margin-inline: auto;
+}
+
+.craft-closing__text {
+  max-width: var(--container-narrow);
+}
+
+.craft-closing__text h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+  margin-bottom: var(--space-xl);
+}
+
+.craft-closing__text p {
+  line-height: var(--leading-normal);
+  margin-bottom: var(--space-lg);
+}
+
+.craft-closing__text p:last-child {
+  margin-bottom: 0;
+}
+
+.craft-closing__text em {
+  font-style: italic;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .craft-hero {
+    padding-top: calc(var(--space-4xl) + var(--space-lg));
+  }
+
+  .craft-demo {
+    padding: var(--space-lg);
+  }
+
+  .craft-demo__canvas {
+    height: 240px;
+  }
+
+  .craft-demo__weight {
+    flex-direction: column;
+    min-height: 400px;
+  }
+
+  .silence-comparison {
+    grid-template-columns: 1fr;
+  }
+
+  .resistance-element {
+    width: calc(60% - 8px);
+  }
+
+  .weight-object {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+/* ─── Reduced Motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  .craft-demo__canvas {
+    cursor: default;
+  }
+
+  .silence-block {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
+  .silence-play {
+    display: none;
+  }
+
+  .tactile-button {
+    transition: none;
+  }
+}

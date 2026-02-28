@@ -1,0 +1,438 @@
+/* ─── Project Card ─── */
+.project-card {
+  position: relative;
+  display: block;
+  overflow: visible;
+  cursor: none;
+  transition: transform var(--duration-normal) var(--ease-spring);
+}
+
+.project-card__image-wrap {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background-color: var(--color-surface);
+  /* Rauschenberg: slight rough edge — not a clean rectangle */
+  border: 1px solid rgba(26, 26, 26, 0.06);
+}
+
+/* Paper grain on card surface — like textured stock */
+.project-card__image-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.12;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  transition: opacity var(--duration-normal) var(--ease-out);
+}
+
+.project-card:hover .project-card__image-wrap::before {
+  opacity: 0.05;
+}
+
+/* Silkscreen treatment on images */
+.project-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: multiply;
+  filter: contrast(1.08) saturate(0.8);
+  transition: transform var(--duration-slow) var(--ease-out),
+              filter var(--duration-normal) var(--ease-out);
+  will-change: transform;
+}
+
+.project-card:hover .project-card__image {
+  transform: scale(1.04);
+  filter: contrast(1) saturate(1);
+}
+
+/* Rauschenberg: color bleed — a semi-transparent block that peeks out behind the image */
+.project-card__image-wrap::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: -6px;
+  right: 6px;
+  bottom: -8px;
+  background-color: var(--color-accent);
+  opacity: 0.06;
+  z-index: -1;
+  border-radius: 1px;
+  transition: opacity var(--duration-normal) var(--ease-out),
+              transform var(--duration-normal) var(--ease-out);
+}
+
+.project-card:hover .project-card__image-wrap::after {
+  opacity: 0.12;
+  transform: translate(-2px, 2px);
+}
+
+/* Accent bar — thicker, rougher */
+.project-card__accent {
+  position: absolute;
+  bottom: -2px;
+  left: -4px;
+  width: calc(100% + 8px);
+  height: 5px;
+  background-color: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--duration-normal) var(--ease-spring);
+}
+
+.project-card:hover .project-card__accent {
+  transform: scaleX(1);
+}
+
+.project-card__info {
+  padding: var(--space-lg) 0 var(--space-sm);
+}
+
+.project-card__title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  letter-spacing: var(--tracking-tight);
+  margin-bottom: var(--space-xs);
+}
+
+.project-card__meta {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+}
+
+/* Card size variants for asymmetric grid */
+.project-card--large {
+  grid-row: span 2;
+}
+
+.project-card--large .project-card__image-wrap {
+  aspect-ratio: 3 / 4;
+}
+
+/* ─── Sketches Strip ─── */
+.sketches-strip {
+  overflow-x: auto;
+  overflow-y: hidden;
+  display: flex;
+  gap: var(--space-md);
+  padding: var(--space-2xl) var(--gutter);
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.sketches-strip::-webkit-scrollbar {
+  display: none;
+}
+
+.sketches-strip__item {
+  flex: 0 0 auto;
+  width: clamp(200px, 25vw, 320px);
+  overflow: hidden;
+  scroll-snap-align: start;
+  position: relative;
+  transition: transform var(--duration-normal) var(--ease-spring),
+              box-shadow var(--duration-normal) var(--ease-out);
+  /* Rauschenberg: each sketch at a slightly different angle — scattered on a table */
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  box-shadow: 2px 3px 8px rgba(26, 26, 26, 0.06);
+}
+
+.sketches-strip__item:nth-child(odd) {
+  transform: rotate(-1.5deg);
+  margin-top: var(--space-md);
+}
+
+.sketches-strip__item:nth-child(even) {
+  transform: rotate(1.2deg);
+  margin-top: calc(var(--space-xl) * -0.5);
+}
+
+.sketches-strip__item:nth-child(3n) {
+  transform: rotate(-0.8deg);
+  margin-top: var(--space-lg);
+}
+
+.sketches-strip__item:hover {
+  transform: rotate(0deg) scale(1.05) translateY(-4px);
+  box-shadow: 4px 6px 20px rgba(26, 26, 26, 0.12);
+  z-index: 10;
+}
+
+.sketches-strip__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: 3 / 4;
+  mix-blend-mode: multiply;
+  filter: contrast(1.05) saturate(0.9);
+}
+
+/* Print grain on sketches — like xerox copies */
+.sketches-strip__item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.07;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 128 128' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='x'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23x)'/%3E%3C/svg%3E");
+  background-size: 128px 128px;
+}
+
+/* ─── Section Label — like a rubber stamp ─── */
+.section-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  padding: var(--space-xs) var(--space-sm);
+  border: 1.5px solid rgba(26, 26, 26, 0.15);
+  display: inline-block;
+  margin-bottom: var(--space-xl);
+  transform: rotate(-0.8deg);
+}
+
+/* ─── Divider — rough, like a dragged brush stroke ─── */
+.divider {
+  width: 100%;
+  height: 2px;
+  margin-block: var(--space-3xl);
+  position: relative;
+  opacity: 0.15;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--ink) 8%,
+    var(--ink) 45%,
+    transparent 46%,
+    var(--ink) 48%,
+    var(--ink) 92%,
+    transparent 100%
+  );
+}
+
+/* Stipple mask — brush bristle breakup */
+.divider::after {
+  content: '';
+  position: absolute;
+  inset: -1px 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 4' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='d'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='4' filter='url(%23d)' opacity='0.6'/%3E%3C/svg%3E");
+  background-size: 200px 4px;
+  mix-blend-mode: screen;
+}
+
+/* ─── Custom Cursor ─── */
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  background-color: var(--ink);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: var(--z-cursor);
+  mix-blend-mode: difference;
+  transform: translate(-50%, -50%);
+  transition: width var(--duration-fast) var(--ease-spring),
+              height var(--duration-fast) var(--ease-spring),
+              background-color var(--duration-fast) var(--ease-out);
+}
+
+.cursor--hover {
+  width: 40px;
+  height: 40px;
+  background-color: var(--orange);
+}
+
+.cursor--hidden {
+  opacity: 0;
+}
+
+@media (pointer: coarse) {
+  .cursor {
+    display: none;
+  }
+}
+
+/* ─── Footer ─── */
+.site-footer {
+  padding: var(--space-3xl) var(--gutter) var(--space-xl);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+}
+
+.site-footer__links {
+  display: flex;
+  gap: var(--space-xl);
+}
+
+.site-footer__links a {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.site-footer__links a:hover {
+  color: var(--color-text);
+}
+
+.site-footer__credit {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+/* ─── Back Link (project pages) ─── */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  padding: var(--space-lg) 0;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.back-link:hover {
+  color: var(--color-text);
+}
+
+.back-link svg {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--duration-fast) var(--ease-spring);
+}
+
+.back-link:hover svg {
+  transform: translateX(-4px);
+}
+
+/* When back-link replaces the logo in site-header */
+.back-link--header {
+  padding: 0;
+}
+
+/* ─── Next Project ─── */
+.next-project {
+  display: block;
+  padding: var(--space-4xl) var(--gutter);
+  background-color: var(--blue);
+  color: var(--white);
+  text-align: center;
+  transition: background-color var(--duration-normal) var(--ease-out);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Grain on dark surfaces — like ink on rough stock */
+.next-project::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  mix-blend-mode: soft-light;
+}
+
+.next-project:hover {
+  background-color: var(--ink);
+}
+
+.next-project__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-bottom: var(--space-md);
+}
+
+.next-project__title {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+}
+
+/* ─── Collage Cut-out Shapes ─── */
+
+/* Long vertical strip running down the right side of the page */
+.collage-strip {
+  position: fixed;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: multiply;
+}
+
+.collage-strip--right {
+  top: 8%;
+  right: 2%;
+  width: 28px;
+  height: 75vh;
+  background: var(--orange);
+  opacity: 0.035;
+  transform: rotate(0.8deg);
+  border-radius: 1px;
+  clip-path: polygon(
+    0% 0%, 100% 0.5%, 98% 12%, 100% 24%, 97% 38%,
+    100% 52%, 99% 65%, 100% 78%, 97% 88%, 100% 100%,
+    0% 99.5%, 2% 85%, 0% 72%, 3% 58%, 0% 44%,
+    1% 30%, 0% 18%, 3% 8%
+  );
+}
+
+/* Smaller organic shapes — torn paper fragments */
+.collage-shape {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: multiply;
+}
+
+.collage-shape--hero {
+  top: 25%;
+  left: -1%;
+  width: 60px;
+  height: 120px;
+  background: var(--blue);
+  opacity: 0.04;
+  transform: rotate(-2.5deg);
+  border-radius: 2px;
+  clip-path: polygon(
+    5% 0%, 95% 3%, 100% 15%, 92% 35%, 100% 55%,
+    95% 75%, 100% 90%, 90% 100%, 8% 97%, 0% 80%,
+    5% 60%, 0% 40%, 8% 20%
+  );
+}
+
+@media (max-width: 768px) {
+  .collage-strip--right {
+    display: none;
+  }
+  .collage-shape--hero {
+    display: none;
+  }
+}

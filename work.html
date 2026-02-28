@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Archive — Bruno Hart</title>
+  <meta name="description" content="Complete archive of design work by Bruno Hart — interaction design, product strategy, and creative engineering.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css?v=7">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css?v=7">
+
+  <meta name="view-transition" content="same-origin">
+  <style>
+    html { background-color: #F0EDE6; }
+
+    /* ─── Hero ─── */
+    .work-hero {
+      padding: calc(var(--space-5xl) + 60px) var(--gutter) var(--space-2xl);
+      max-width: var(--container-max);
+      margin: 0 auto;
+    }
+
+    .work-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      color: var(--ink);
+      position: relative;
+      margin-bottom: var(--space-sm);
+    }
+
+    .work-hero__title::before {
+      content: attr(data-text);
+      position: absolute;
+      top: 4px;
+      left: 6px;
+      color: var(--orange);
+      opacity: 0.07;
+      z-index: -1;
+    }
+
+    .work-hero__sub {
+      font-family: var(--font-body);
+      font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+      line-height: 1.65;
+      color: var(--ink);
+      opacity: 0.5;
+      max-width: 440px;
+    }
+
+    /* ─── DVD Player ─── */
+    .player {
+      position: relative;
+      margin: var(--space-xl) 0 var(--space-2xl);
+    }
+
+    .player__unit {
+      position: relative;
+      background: var(--ink);
+      border-radius: 6px;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.15), 0 1px 4px rgba(0,0,0,0.1);
+    }
+
+    /* Grain on player */
+    .player__unit::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 6px;
+      pointer-events: none;
+      opacity: 0.15;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+      background-size: 256px 256px;
+    }
+
+    .player__slot {
+      flex: 1;
+      height: 6px;
+      background: rgba(240, 237, 230, 0.06);
+      border-radius: 3px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(240, 237, 230, 0.04);
+    }
+
+    .player__slot-glow {
+      position: absolute;
+      inset: -3px;
+      background: var(--orange);
+      opacity: 0;
+      border-radius: 6px;
+      filter: blur(6px);
+      transition: opacity 0.4s ease;
+    }
+
+    /* Disc indicator that appears inside slot during insertion */
+    .player__disc-indicator {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 40px;
+      height: 4px;
+      margin: -2px 0 0 -20px;
+      background: var(--orange);
+      border-radius: 2px;
+      opacity: 0;
+      transform: scaleX(0);
+    }
+
+    .player__label {
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(240, 237, 230, 0.25);
+      white-space: nowrap;
+    }
+
+    .player__eject {
+      width: 20px;
+      height: 20px;
+      border: none;
+      background: none;
+      color: rgba(240, 237, 230, 0.2);
+      cursor: pointer;
+      padding: 0;
+      transition: color 0.3s ease;
+    }
+
+    .player__eject:hover { color: rgba(240, 237, 230, 0.5); }
+
+    /* ─── Shelf ─── */
+    .shelf-wrap {
+      position: relative;
+    }
+
+    .shelf {
+      position: relative;
+      overflow-x: auto;
+      overflow-y: visible;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+      padding: 30px 0 0;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .shelf::-webkit-scrollbar { display: none; }
+
+    .shelf.is-dragging { cursor: grabbing; }
+
+    .shelf__track {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      padding: 0 40px 0 0;
+      min-width: max-content;
+    }
+
+    /* Wood shelf surface */
+    .shelf__surface {
+      height: 18px;
+      background: linear-gradient(180deg, #B8956A 0%, #A07D55 40%, #8B6B44 100%);
+      border-radius: 0 0 3px 3px;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+      margin-top: -2px;
+    }
+
+    /* Wood grain */
+    .shelf__surface::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0.15;
+      mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.4' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+      background-size: 256px 256px;
+    }
+
+    /* Shelf lip shadow */
+    .shelf__surface::after {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.06));
+    }
+
+    /* ─── DVD Case ─── */
+    .dvd {
+      position: relative;
+      flex-shrink: 0;
+      perspective: 1200px;
+      cursor: pointer;
+      height: 380px;
+    }
+
+    .dvd__case {
+      position: relative;
+      width: 34px;
+      height: 380px;
+      transform-style: preserve-3d;
+      transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .dvd:hover .dvd__case {
+      transform: translateY(-16px);
+    }
+
+    .dvd.is-active {
+      z-index: 200;
+    }
+
+    .dvd.is-active .dvd__case {
+      transform: none;
+    }
+
+    /* Spine — the visible face when standing */
+    .dvd__spine {
+      position: absolute;
+      width: 34px;
+      height: 380px;
+      background: var(--ink);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0 10px;
+      backface-visibility: hidden;
+      box-shadow: 1px 0 3px rgba(0,0,0,0.15), -1px 0 3px rgba(0,0,0,0.15);
+    }
+
+    .dvd__spine-number {
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.08em;
+      color: rgba(240, 237, 230, 0.4);
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+    }
+
+    .dvd__spine-title {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--bg);
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      white-space: nowrap;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dvd__spine-accent {
+      width: 14px;
+      height: 3px;
+      border-radius: 1px;
+      flex-shrink: 0;
+    }
+
+    /* Front cover — hidden initially, revealed on click */
+    .dvd__front {
+      position: absolute;
+      top: 0;
+      left: 34px;
+      width: 270px;
+      height: 380px;
+      background: var(--cream);
+      backface-visibility: hidden;
+      transform-origin: left center;
+      transform: rotateY(0deg);
+      box-shadow: 4px 0 16px rgba(0,0,0,0.1);
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Grain on cover */
+    .dvd__front::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      opacity: 0.1;
+      mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+      background-size: 256px 256px;
+    }
+
+    .dvd__cover-image {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      display: block;
+      mix-blend-mode: multiply;
+      filter: contrast(1.08) saturate(0.8);
+    }
+
+    .dvd__cover-info {
+      padding: 16px 18px;
+    }
+
+    .dvd__cover-number {
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      color: var(--grey);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .dvd__cover-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: var(--tracking-tight);
+      color: var(--ink);
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .dvd__cover-meta {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.04em;
+      color: var(--grey);
+      text-transform: uppercase;
+      line-height: 1.6;
+    }
+
+    .dvd__cover-year {
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      color: var(--grey);
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(26,26,26,0.08);
+    }
+
+    /* Disc — inside the case */
+    .dvd__disc {
+      position: absolute;
+      top: 50%;
+      left: 34px;
+      width: 120px;
+      height: 120px;
+      margin-top: -60px;
+      margin-left: 75px;
+      border-radius: 50%;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+    }
+
+    .dvd__disc-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      mix-blend-mode: multiply;
+      filter: contrast(1.1) saturate(0.7);
+    }
+
+    /* Disc ring */
+    .dvd__disc::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 24px;
+      height: 24px;
+      margin: -12px 0 0 -12px;
+      border-radius: 50%;
+      background: var(--bg);
+      box-shadow: 0 0 0 2px rgba(26,26,26,0.1);
+    }
+
+    /* Disc grooves */
+    .dvd__disc::before {
+      content: '';
+      position: absolute;
+      inset: 15px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow:
+        inset 0 0 0 8px rgba(255,255,255,0.03),
+        inset 0 0 0 20px rgba(255,255,255,0.02),
+        inset 0 0 0 35px rgba(255,255,255,0.01);
+      z-index: 1;
+    }
+
+    /* ─── Play button on cover ─── */
+    .dvd__play {
+      position: absolute;
+      bottom: 14px;
+      right: 14px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--ink);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 210;
+      opacity: 0;
+      transform: scale(0.7);
+      pointer-events: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      transition: background 0.2s ease;
+    }
+
+    .dvd__play svg {
+      width: 14px;
+      height: 14px;
+      fill: var(--bg);
+      margin-left: 2px;
+    }
+
+    .dvd__play:hover {
+      background: var(--orange);
+    }
+
+    /* ─── Overlay for expanded state ─── */
+    .dvd-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(240, 237, 230, 0);
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      backdrop-filter: blur(0px);
+      -webkit-backdrop-filter: blur(0px);
+      transition: none;
+    }
+
+    .dvd-overlay.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ─── Mobile ─── */
+    @media (max-width: 768px) {
+      .player { display: none; }
+
+      .shelf {
+        overflow: visible;
+        cursor: default;
+        padding: 0;
+      }
+
+      .shelf__track {
+        flex-direction: column;
+        gap: var(--space-lg);
+        padding: 0;
+        min-width: auto;
+      }
+
+      .shelf__surface { display: none; }
+
+      .dvd {
+        height: auto;
+        perspective: none;
+      }
+
+      .dvd__case {
+        width: 100%;
+        height: auto;
+        transform: none !important;
+      }
+
+      .dvd__spine { display: none; }
+
+      .dvd__front {
+        position: relative;
+        left: 0;
+        width: 100%;
+        height: auto;
+        opacity: 1;
+        pointer-events: auto;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      }
+
+      .dvd__cover-image { height: 200px; }
+      .dvd__disc { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor" aria-hidden="true"></div>
+
+  <!-- Overlay for expanded DVD -->
+  <div class="dvd-overlay" id="dvdOverlay"></div>
+
+  <header class="site-header">
+    <a href="./" class="back-link back-link--header">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10 12L6 8l4-4"/>
+      </svg>
+      Back to home
+    </a>
+    <nav>
+      <a href="craft.html" class="underline-draw">Principles</a>
+      <a href="work.html" class="underline-draw">Archive</a>
+      <a href="experiments.html" class="underline-draw">Experiments</a>
+      <a href="mailto:hello@designedbybruno.net" class="underline-draw">Contact</a>
+    </nav>
+  </header>
+
+  <main class="page">
+
+    <section class="work-hero">
+      <h1 class="work-hero__title" data-text="Archive.">Archive<span class="accent">.</span></h1>
+      <p class="work-hero__sub">Product design, systems strategy, and creative engineering.</p>
+
+    <!-- DVD Player -->
+    <div class="player" id="player">
+      <div class="player__unit">
+        <span class="player__label">Insert disc</span>
+        <div class="player__slot">
+          <div class="player__slot-glow" id="slotGlow"></div>
+          <div class="player__disc-indicator" id="discIndicator"></div>
+        </div>
+        <button class="player__eject" id="ejectBtn" aria-label="Eject disc">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="20" height="20">
+            <path d="M10 3l7 8H3l7-8zm-7 10h14v2H3v-2z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Shelf -->
+    <div class="shelf-wrap">
+      <div class="shelf" id="shelf">
+        <div class="shelf__track" id="shelfTrack">
+
+          <!-- 001: Letterboxd Live -->
+          <div class="dvd" data-href="projects/letterboxd.html" data-color="var(--orange)" data-index="0">
+            <div class="dvd__case">
+              <div class="dvd__spine">
+                <span class="dvd__spine-number">001</span>
+                <span class="dvd__spine-title">Letterboxd Live</span>
+                <span class="dvd__spine-accent" style="background: var(--orange);"></span>
+              </div>
+              <div class="dvd__front">
+                <img class="dvd__cover-image" src="assets/images/letterboxd-hero.png" alt="Letterboxd Live">
+                <div class="dvd__cover-info">
+                  <span class="dvd__cover-number">Collection 001</span>
+                  <h3 class="dvd__cover-title">Letterboxd Live</h3>
+                  <p class="dvd__cover-meta">UX System &middot; SwiftUI &middot; Self-Perception Theory</p>
+                  <span class="dvd__cover-year">2024 &mdash; Product Design</span>
+                </div>
+                <button class="dvd__play" aria-label="Play"><svg viewBox="0 0 16 16"><path d="M4 2l10 6-10 6V2z"/></svg></button>
+              </div>
+              <div class="dvd__disc">
+                <img class="dvd__disc-image" src="assets/images/letterboxd-hero.png" alt="">
+              </div>
+            </div>
+          </div>
+
+          <!-- 002: Flicks -->
+          <div class="dvd" data-href="projects/flicks.html" data-color="var(--blue)" data-index="1">
+            <div class="dvd__case">
+              <div class="dvd__spine">
+                <span class="dvd__spine-number">002</span>
+                <span class="dvd__spine-title">Flicks &mdash; Cinema Together</span>
+                <span class="dvd__spine-accent" style="background: var(--blue);"></span>
+              </div>
+              <div class="dvd__front">
+                <img class="dvd__cover-image" src="assets/images/flicks-hero.png" alt="Flicks">
+                <div class="dvd__cover-info">
+                  <span class="dvd__cover-number">Collection 002</span>
+                  <h3 class="dvd__cover-title">Flicks &mdash; Cinema Together</h3>
+                  <p class="dvd__cover-meta">Product Design &middot; React Prototype &middot; Value Chain</p>
+                  <span class="dvd__cover-year">2024 &mdash; Systems Strategy</span>
+                </div>
+                <button class="dvd__play" aria-label="Play"><svg viewBox="0 0 16 16"><path d="M4 2l10 6-10 6V2z"/></svg></button>
+              </div>
+              <div class="dvd__disc">
+                <img class="dvd__disc-image" src="assets/images/flicks-hero.png" alt="">
+              </div>
+            </div>
+          </div>
+
+          <!-- 003: VUW -->
+          <div class="dvd" data-href="projects/vuw.html" data-color="var(--red)" data-index="2">
+            <div class="dvd__case">
+              <div class="dvd__spine">
+                <span class="dvd__spine-number">003</span>
+                <span class="dvd__spine-title">VUW Course Selection</span>
+                <span class="dvd__spine-accent" style="background: var(--red);"></span>
+              </div>
+              <div class="dvd__front">
+                <img class="dvd__cover-image" src="assets/VUW-cover-image.png" alt="VUW Course Selection">
+                <div class="dvd__cover-info">
+                  <span class="dvd__cover-number">Collection 003</span>
+                  <h3 class="dvd__cover-title">VUW Course Selection</h3>
+                  <p class="dvd__cover-meta">Systems Thinking &middot; Figma Prototype &middot; Research</p>
+                  <span class="dvd__cover-year">2024 &mdash; Design Strategy</span>
+                </div>
+                <button class="dvd__play" aria-label="Play"><svg viewBox="0 0 16 16"><path d="M4 2l10 6-10 6V2z"/></svg></button>
+              </div>
+              <div class="dvd__disc">
+                <img class="dvd__disc-image" src="assets/VUW-cover-image.png" alt="">
+              </div>
+            </div>
+          </div>
+
+          <!-- 004: Engoo -->
+          <div class="dvd" data-href="projects/engoo.html" data-color="var(--blue)" data-index="3">
+            <div class="dvd__case">
+              <div class="dvd__spine">
+                <span class="dvd__spine-number">004</span>
+                <span class="dvd__spine-title">Engoo Customer UX</span>
+                <span class="dvd__spine-accent" style="background: var(--blue);"></span>
+              </div>
+              <div class="dvd__front">
+                <img class="dvd__cover-image" src="assets/Engoo-cover-image.png" alt="Engoo Customer UX">
+                <div class="dvd__cover-info">
+                  <span class="dvd__cover-number">Collection 004</span>
+                  <h3 class="dvd__cover-title">Engoo Customer UX</h3>
+                  <p class="dvd__cover-meta">Flow Redesign &middot; Cognitive Load &middot; Figma</p>
+                  <span class="dvd__cover-year">2024 &mdash; UX Research</span>
+                </div>
+                <button class="dvd__play" aria-label="Play"><svg viewBox="0 0 16 16"><path d="M4 2l10 6-10 6V2z"/></svg></button>
+              </div>
+              <div class="dvd__disc">
+                <img class="dvd__disc-image" src="assets/Engoo-cover-image.png" alt="">
+              </div>
+            </div>
+          </div>
+
+          <!-- 005: Braun Clock -->
+          <div class="dvd" data-href="projects/braun-clock.html" data-color="var(--ink)" data-index="4">
+            <div class="dvd__case">
+              <div class="dvd__spine">
+                <span class="dvd__spine-number">005</span>
+                <span class="dvd__spine-title">Braun Clock</span>
+                <span class="dvd__spine-accent" style="background: var(--grey);"></span>
+              </div>
+              <div class="dvd__front">
+                <img class="dvd__cover-image" src="assets/images/braun-clock-hero.jpg" alt="Braun Clock">
+                <div class="dvd__cover-info">
+                  <span class="dvd__cover-number">Collection 005</span>
+                  <h3 class="dvd__cover-title">Braun Clock</h3>
+                  <p class="dvd__cover-meta">Dieter Rams &middot; p5.js &middot; Time-Based Media</p>
+                  <span class="dvd__cover-year">2025 &mdash; Creative Code</span>
+                </div>
+                <button class="dvd__play" aria-label="Play"><svg viewBox="0 0 16 16"><path d="M4 2l10 6-10 6V2z"/></svg></button>
+              </div>
+              <div class="dvd__disc">
+                <img class="dvd__disc-image" src="assets/images/braun-clock-hero.jpg" alt="">
+              </div>
+            </div>
+          </div>
+
+          <!-- 006: Lavazza Type -->
+          <div class="dvd" data-href="projects/lavazza-type.html" data-color="var(--orange)" data-index="5">
+            <div class="dvd__case">
+              <div class="dvd__spine">
+                <span class="dvd__spine-number">006</span>
+                <span class="dvd__spine-title">Lavazza Type System</span>
+                <span class="dvd__spine-accent" style="background: var(--orange);"></span>
+              </div>
+              <div class="dvd__front">
+                <img class="dvd__cover-image" src="assets/images/lavazza-hero.png" alt="Lavazza Type System">
+                <div class="dvd__cover-info">
+                  <span class="dvd__cover-number">Collection 006</span>
+                  <h3 class="dvd__cover-title">Lavazza Type System</h3>
+                  <p class="dvd__cover-meta">p5.js &middot; Coffee Parameters &middot; William Kentridge</p>
+                  <span class="dvd__cover-year">2025 &mdash; Parametric Type</span>
+                </div>
+                <button class="dvd__play" aria-label="Play"><svg viewBox="0 0 16 16"><path d="M4 2l10 6-10 6V2z"/></svg></button>
+              </div>
+              <div class="dvd__disc">
+                <img class="dvd__disc-image" src="assets/images/lavazza-hero.png" alt="">
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="shelf__surface"></div>
+    </div>
+
+    </section>
+  </main>
+
+  <footer style="background-color: #1A1A1A; color: #F0EDE6; width: 100%; padding: 3rem 1.5rem 2.5rem; display: flex; flex-direction: column; align-items: center; text-align: center;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1.5rem; width: 100%; max-width: 1200px;">
+      <div style="display: flex; gap: 2rem;">
+        <a href="https://github.com/brunohart" target="_blank" rel="noopener" style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(240, 237, 230, 0.5); transition: color 0.2s;">GitHub</a>
+        <a href="https://boxd.it/3QqON" target="_blank" rel="noopener" style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(240, 237, 230, 0.5); transition: color 0.2s;">Letterboxd</a>
+        <a href="mailto:hello@designedbybruno.net" style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(240, 237, 230, 0.5); transition: color 0.2s;">Email</a>
+      </div>
+      <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: rgba(240, 237, 230, 0.3);">&copy; 2026 Bruno Hart</p>
+    </div>
+  </footer>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Scripts -->
+  <script src="js/cursor.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/main.js"></script>
+
+  <!-- DVD Shelf Physics + Play Animation -->
+  <script>
+  (function() {
+    'use strict';
+
+    var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var isMobile = window.innerWidth <= 768;
+
+    function lerp(a, b, t) { return a + (b - a) * t; }
+
+    var shelf = document.getElementById('shelf');
+    var shelfTrack = document.getElementById('shelfTrack');
+    var dvds = Array.from(document.querySelectorAll('.dvd'));
+    var overlay = document.getElementById('dvdOverlay');
+    var slotGlow = document.getElementById('slotGlow');
+    var playerUnit = document.querySelector('.player__unit');
+    var activeDVD = null;
+    var isAnimating = false;
+
+    if (!shelf || isMobile) {
+      // Mobile: simple click navigation
+      dvds.forEach(function(dvd) {
+        dvd.addEventListener('click', function() {
+          window.location.href = dvd.dataset.href;
+        });
+      });
+
+      // GSAP entrance for mobile
+      if (typeof gsap !== 'undefined' && !prefersReducedMotion) {
+        gsap.fromTo('.site-header', { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: 0.2 });
+        gsap.fromTo('.work-hero__title', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1, ease: 'power4.out', delay: 0.3 });
+        gsap.fromTo('.work-hero__sub', { opacity: 0, y: 20 }, { opacity: 0.5, y: 0, duration: 0.8, ease: 'power3.out', delay: 0.5 });
+        gsap.fromTo('.dvd', { opacity: 0, y: 30 }, { opacity: 1, y: 0, stagger: 0.08, duration: 0.7, ease: 'power3.out', delay: 0.6 });
+      }
+      return;
+    }
+
+    // ─── Shelf drag scroll with momentum ───
+    var isDragging = false;
+    var startX = 0;
+    var scrollStart = 0;
+    var velocity = 0;
+    var lastX = 0;
+    var lastTime = 0;
+    var momentumRaf = null;
+
+    shelf.addEventListener('mousedown', function(e) {
+      if (isAnimating) return;
+      isDragging = true;
+      startX = e.clientX;
+      scrollStart = shelf.scrollLeft;
+      lastX = e.clientX;
+      lastTime = Date.now();
+      velocity = 0;
+      shelf.classList.add('is-dragging');
+      if (momentumRaf) cancelAnimationFrame(momentumRaf);
+      e.preventDefault();
+    });
+
+    window.addEventListener('mousemove', function(e) {
+      if (!isDragging) return;
+      var dx = e.clientX - startX;
+      shelf.scrollLeft = scrollStart - dx;
+
+      // Velocity tracking
+      var now = Date.now();
+      var dt = now - lastTime;
+      if (dt > 0) {
+        velocity = (e.clientX - lastX) / dt * 16; // normalize to ~60fps frame
+      }
+      lastX = e.clientX;
+      lastTime = now;
+    });
+
+    window.addEventListener('mouseup', function() {
+      if (!isDragging) return;
+      isDragging = false;
+      shelf.classList.remove('is-dragging');
+
+      // Momentum scroll
+      if (Math.abs(velocity) > 0.5) {
+        function momentumTick() {
+          velocity *= 0.94; // friction
+          shelf.scrollLeft -= velocity;
+          if (Math.abs(velocity) > 0.3) {
+            momentumRaf = requestAnimationFrame(momentumTick);
+          }
+        }
+        momentumRaf = requestAnimationFrame(momentumTick);
+      }
+    });
+
+    // Keyboard navigation
+    var focusedIndex = -1;
+    document.addEventListener('keydown', function(e) {
+      if (isAnimating) return;
+
+      if (e.key === 'ArrowRight') {
+        focusedIndex = Math.min(focusedIndex + 1, dvds.length - 1);
+        dvds[focusedIndex].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        e.preventDefault();
+      } else if (e.key === 'ArrowLeft') {
+        focusedIndex = Math.max(focusedIndex - 1, 0);
+        dvds[focusedIndex].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        e.preventDefault();
+      } else if (e.key === 'Enter' && focusedIndex >= 0) {
+        if (activeDVD === dvds[focusedIndex]) {
+          confirmPlay(dvds[focusedIndex]); // already previewing, confirm
+        } else {
+          if (activeDVD) ejectDVD();
+          previewDVD(dvds[focusedIndex]);
+        }
+        e.preventDefault();
+      } else if (e.key === 'Escape') {
+        ejectDVD();
+        e.preventDefault();
+      }
+    });
+
+    // ─── Tap 1: Preview DVD ───
+    dvds.forEach(function(dvd) {
+      dvd.addEventListener('click', function(e) {
+        if (isDragging && Math.abs(shelf.scrollLeft - scrollStart) > 5) return;
+        if (isAnimating) return;
+        if (activeDVD === dvd) return; // already previewing this one
+        if (activeDVD) { ejectDVD(); return; } // eject current, then user can tap again
+        previewDVD(dvd);
+      });
+    });
+
+    // Overlay click to eject
+    overlay.addEventListener('click', function() {
+      ejectDVD();
+    });
+
+    // Eject button
+    document.getElementById('ejectBtn').addEventListener('click', function() {
+      ejectDVD();
+    });
+
+    // ─── Preview: Pull out DVD and show cover ───
+    function previewDVD(dvd) {
+      if (isAnimating || activeDVD) return;
+      isAnimating = true;
+      activeDVD = dvd;
+
+      var dvdCase = dvd.querySelector('.dvd__case');
+      var front = dvd.querySelector('.dvd__front');
+      var playBtn = dvd.querySelector('.dvd__play');
+
+      // Show transparent overlay for click-to-eject, no blur
+      overlay.style.opacity = '1';
+      overlay.style.background = 'rgba(240, 237, 230, 0)';
+      overlay.style.backdropFilter = 'blur(0px)';
+      overlay.style.webkitBackdropFilter = 'blur(0px)';
+      overlay.classList.add('is-visible');
+      dvd.classList.add('is-active');
+
+      // Make front cover visible above overlay and clickable
+      front.style.pointerEvents = 'auto';
+      front.style.cursor = 'pointer';
+      front.style.zIndex = '200';
+
+      var tl1 = gsap.timeline({
+        onComplete: function() {
+          isAnimating = false; // allow interaction — waiting for tap 2
+
+          // Animate play button in with spring
+          gsap.to(playBtn, {
+            opacity: 1,
+            scale: 1,
+            duration: 0.4,
+            ease: 'back.out(2)',
+            delay: 0.1
+          });
+
+          // Tap 2: click anywhere on the front cover (or play button) to confirm
+          function onFrontClick(e) {
+            e.stopPropagation();
+            front.removeEventListener('click', onFrontClick);
+            confirmPlay(dvd);
+          }
+          front.addEventListener('click', onFrontClick);
+          dvd._frontClickHandler = onFrontClick;
+        }
+      });
+
+      // Lift DVD up
+      tl1.to(dvdCase, {
+        y: -30,
+        duration: 0.35,
+        ease: 'power2.out'
+      });
+
+      // Show front cover + expand
+      tl1.to(front, {
+        opacity: 1,
+        duration: 0.01
+      }, '-=0.1');
+
+      tl1.to(dvdCase, {
+        width: 304,
+        duration: 0.4,
+        ease: 'power3.inOut'
+      }, '-=0.1');
+    }
+
+    // ─── Confirm: Disc animation + navigate ───
+    function confirmPlay(dvd) {
+      isAnimating = true;
+
+      var dvdCase = dvd.querySelector('.dvd__case');
+      var front = dvd.querySelector('.dvd__front');
+      var disc = dvd.querySelector('.dvd__disc');
+      var href = dvd.dataset.href;
+
+      // Get fresh positions
+      var playerRect2 = playerUnit.getBoundingClientRect();
+      var playerCenter = {
+        x: playerRect2.left + playerRect2.width / 2,
+        y: playerRect2.top + playerRect2.height / 2
+      };
+
+      var tl2 = gsap.timeline({
+        onComplete: function() {
+          setTimeout(function() {
+            window.location.href = href;
+          }, 200);
+        }
+      });
+
+      // Show disc
+      tl2.to(disc, { opacity: 1, duration: 0.01 });
+
+      // Disc slides out of case
+      tl2.to(disc, {
+        x: 180,
+        duration: 0.5,
+        ease: 'power2.inOut'
+      });
+
+      // Disc floats to player
+      tl2.call(function() {
+        var discNow = disc.getBoundingClientRect();
+        var cx = discNow.left + discNow.width / 2;
+        var cy = discNow.top + discNow.height / 2;
+        var currentX = gsap.getProperty(disc, 'x') || 0;
+        var currentY = gsap.getProperty(disc, 'y') || 0;
+        gsap.to(disc, {
+          x: currentX + (playerCenter.x - cx),
+          y: currentY + (playerCenter.y - cy),
+          scale: 0.4,
+          duration: 0.7,
+          ease: 'power3.inOut'
+        });
+      });
+
+      // Delay for disc flight
+      tl2.to({}, { duration: 0.5 });
+
+      // Player slot glows as disc approaches
+      tl2.to(slotGlow, {
+        opacity: 0.8,
+        duration: 0.3,
+        ease: 'power2.out'
+      }, '-=0.3');
+
+      // Disc enters slot — flatten and shrink into the slit
+      var discIndicator = document.getElementById('discIndicator');
+      tl2.to(disc, {
+        scaleY: 0.15,
+        scaleX: 0.3,
+        opacity: 0.6,
+        duration: 0.25,
+        ease: 'power2.in'
+      });
+
+      // Disc disappears into slot + indicator bar pulses inside
+      tl2.to(disc, {
+        scaleY: 0,
+        opacity: 0,
+        duration: 0.15,
+        ease: 'power2.in'
+      });
+
+      tl2.to(discIndicator, {
+        opacity: 1,
+        scaleX: 1,
+        duration: 0.3,
+        ease: 'power2.out'
+      }, '-=0.1');
+
+      // Indicator settles then fades
+      tl2.to(discIndicator, {
+        scaleX: 0.6,
+        opacity: 0.5,
+        duration: 0.4,
+        ease: 'power2.inOut'
+      });
+
+      // Subtle blur + fade out as transition to case study
+      tl2.to(overlay, {
+        opacity: 1,
+        background: 'rgba(240, 237, 230, 0.85)',
+        backdropFilter: 'blur(8px)',
+        webkitBackdropFilter: 'blur(8px)',
+        duration: 0.6,
+        ease: 'power2.inOut'
+      });
+    }
+
+    // ─── Eject ───
+    function ejectDVD() {
+      if (!activeDVD) return;
+
+      var dvd = activeDVD;
+      var dvdCase = dvd.querySelector('.dvd__case');
+      var front = dvd.querySelector('.dvd__front');
+      var disc = dvd.querySelector('.dvd__disc');
+
+      // Clean up click handlers
+      var playBtn = dvd.querySelector('.dvd__play');
+      if (dvd._frontClickHandler) {
+        front.removeEventListener('click', dvd._frontClickHandler);
+        dvd._frontClickHandler = null;
+      }
+      gsap.set(playBtn, { opacity: 0, scale: 0.7 });
+      front.style.pointerEvents = '';
+      front.style.zIndex = '';
+
+      gsap.to(overlay, {
+        opacity: 0,
+        background: 'rgba(240, 237, 230, 0)',
+        backdropFilter: 'blur(0px)',
+        webkitBackdropFilter: 'blur(0px)',
+        duration: 0.3,
+        onComplete: function() {
+          overlay.classList.remove('is-visible');
+        }
+      });
+      dvd.classList.remove('is-active');
+
+      gsap.to(slotGlow, { opacity: 0, duration: 0.3 });
+
+      gsap.to(disc, {
+        x: 0, y: 0, scale: 1, opacity: 0,
+        duration: 0.3, ease: 'power2.out'
+      });
+
+      gsap.to(dvdCase, {
+        width: 34, y: 0,
+        duration: 0.5,
+        ease: 'power3.inOut',
+        onComplete: function() {
+          front.style.opacity = 0;
+          activeDVD = null;
+          isAnimating = false;
+        }
+      });
+    }
+
+    // ─── GSAP Entrance ───
+    if (typeof gsap !== 'undefined' && !prefersReducedMotion) {
+      gsap.registerPlugin(ScrollTrigger);
+
+      gsap.fromTo('.site-header',
+        { opacity: 0, y: -20 },
+        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: 0.2 }
+      );
+
+      gsap.fromTo('.work-hero__title',
+        { opacity: 0, y: 50, scale: 0.97 },
+        { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: 'power4.out', delay: 0.3 }
+      );
+
+      gsap.fromTo('.work-hero__sub',
+        { opacity: 0, y: 20 },
+        { opacity: 0.5, y: 0, duration: 0.8, ease: 'power3.out', delay: 0.5 }
+      );
+
+      gsap.fromTo('.player__unit',
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', delay: 0.6 }
+      );
+
+      // DVDs drop onto shelf with stagger
+      dvds.forEach(function(dvd, i) {
+        var spineCase = dvd.querySelector('.dvd__case');
+        gsap.fromTo(spineCase,
+          { y: -60, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            delay: 0.7 + i * 0.08,
+            ease: 'back.out(1.2)'
+          }
+        );
+      });
+
+      gsap.fromTo('.shelf__surface',
+        { opacity: 0 },
+        { opacity: 1, duration: 0.5, delay: 0.6, ease: 'power2.out' }
+      );
+
+    }
+
+  })();
+  </script>
+</body>
+</html>

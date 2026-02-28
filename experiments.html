@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Experiments — Bruno Hart</title>
+  <meta name="description" content="A practice of experiments at the edges of the knowledge domain — developing new connections and procedures that enrich professional work with discipline.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css?v=7">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css?v=7">
+
+  <meta name="view-transition" content="same-origin">
+  <style>
+    html { background-color: #F0EDE6; }
+
+    .experiments-hero {
+      padding: calc(var(--space-5xl) + 60px) var(--space-lg) var(--space-xl);
+      max-width: var(--container-max);
+      margin: 0 auto;
+    }
+
+    .experiments-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin-bottom: var(--space-lg);
+      position: relative;
+    }
+
+    .experiments-hero__title::before {
+      content: attr(data-text);
+      position: absolute;
+      top: 3px;
+      left: 5px;
+      color: var(--orange);
+      opacity: 0.08;
+      z-index: -1;
+    }
+
+    .experiments-hero__intro {
+      font-family: var(--font-body);
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      line-height: 1.7;
+      color: var(--ink);
+      opacity: 0.7;
+      max-width: 640px;
+      margin-bottom: var(--space-xl);
+    }
+
+    /* ─── Desk Surface ─── */
+    .desk {
+      position: relative;
+      width: 100%;
+      min-height: 85vh;
+      overflow: hidden;
+      cursor: default;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* ─── Paper Cards ─── */
+    .paper {
+      position: absolute;
+      width: 280px;
+      background: var(--cream);
+      border-radius: 3px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.06);
+      cursor: grab;
+      touch-action: none;
+      will-change: transform;
+      transition: box-shadow 0.3s ease;
+      overflow: hidden;
+    }
+
+    .paper::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      mix-blend-mode: multiply;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .paper.dragging {
+      cursor: grabbing;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.1);
+      z-index: 1000 !important;
+    }
+
+    .paper__image {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .paper__image img,
+    .paper__image iframe {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      mix-blend-mode: multiply;
+      filter: contrast(1.06) saturate(0.85);
+      pointer-events: none;
+    }
+
+    .paper__info {
+      padding: 12px 16px 16px;
+    }
+
+    .paper__title {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .paper__meta {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.04em;
+      color: var(--grey);
+      text-transform: uppercase;
+    }
+
+    .paper__link {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-top: 6px;
+      text-decoration: none;
+    }
+
+    /* Wider cards for sketches */
+    .paper--sketch {
+      width: 220px;
+    }
+
+    .paper--sketch .paper__image {
+      aspect-ratio: 3 / 4;
+    }
+
+    .paper--sketch .paper__image img {
+      mix-blend-mode: multiply;
+    }
+
+    @media (max-width: 768px) {
+      .paper {
+        width: 240px;
+      }
+      .paper--sketch {
+        width: 180px;
+      }
+      .desk {
+        min-height: 120vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a href="./" class="back-link back-link--header">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10 12L6 8l4-4"/>
+      </svg>
+      Back to home
+    </a>
+    <nav>
+      <a href="craft.html" class="underline-draw">Principles</a>
+      <a href="work.html" class="underline-draw">Archive</a>
+      <a href="experiments.html" class="underline-draw">Experiments</a>
+      <a href="mailto:hello@designedbybruno.net" class="underline-draw">Contact</a>
+    </nav>
+  </header>
+
+  <main class="page">
+
+    <section class="experiments-hero">
+      <h1 class="experiments-hero__title" data-text="Experiments.">Experiments<span class="accent">.</span></h1>
+      <p class="experiments-hero__intro">
+        Developing new connections and procedures that sit outside the familiar, enriching a perspective that can be brought into professional work with discipline. A daily pursuit of curiosity and experience.
+      </p>
+    </section>
+
+    <div class="desk" id="desk">
+
+      <!-- Sketch pages -->
+      <div class="paper paper--sketch">
+        <div class="paper__image">
+          <img src="assets/images/sketch-01.png" alt="Sketchbook page" loading="lazy">
+        </div>
+        <div class="paper__info">
+          <p class="paper__meta">Sketchbook</p>
+        </div>
+      </div>
+
+      <div class="paper paper--sketch">
+        <div class="paper__image">
+          <img src="assets/images/sketch-02.png" alt="Sketchbook page" loading="lazy">
+        </div>
+        <div class="paper__info">
+          <p class="paper__meta">Sketchbook</p>
+        </div>
+      </div>
+
+      <div class="paper paper--sketch">
+        <div class="paper__image">
+          <img src="assets/images/sketch-03.png" alt="Sketchbook page" loading="lazy">
+        </div>
+        <div class="paper__info">
+          <p class="paper__meta">Sketchbook</p>
+        </div>
+      </div>
+
+      <div class="paper paper--sketch">
+        <div class="paper__image">
+          <img src="assets/images/sketch-04.png" alt="Sketchbook page" loading="lazy">
+        </div>
+        <div class="paper__info">
+          <p class="paper__meta">Sketchbook</p>
+        </div>
+      </div>
+
+      <div class="paper paper--sketch">
+        <div class="paper__image">
+          <img src="assets/images/sketch-05.png" alt="Sketchbook page" loading="lazy">
+        </div>
+        <div class="paper__info">
+          <p class="paper__meta">Sketchbook</p>
+        </div>
+      </div>
+
+      <div class="paper paper--sketch">
+        <div class="paper__image">
+          <img src="assets/images/sketch-06.png" alt="Sketchbook page" loading="lazy">
+        </div>
+        <div class="paper__info">
+          <p class="paper__meta">Sketchbook</p>
+        </div>
+      </div>
+
+      <div class="paper paper--sketch">
+        <div class="paper__image">
+          <img src="assets/images/sketch-07.png" alt="Sketchbook page" loading="lazy">
+        </div>
+        <div class="paper__info">
+          <p class="paper__meta">Sketchbook</p>
+        </div>
+      </div>
+
+      <div class="paper paper--sketch">
+        <div class="paper__image">
+          <img src="assets/images/sketch-08.png" alt="Sketchbook page" loading="lazy">
+        </div>
+        <div class="paper__info">
+          <p class="paper__meta">Sketchbook</p>
+        </div>
+      </div>
+
+      <div class="paper paper--sketch">
+        <div class="paper__image">
+          <img src="assets/images/sketch-09.png" alt="Sketchbook page" loading="lazy">
+        </div>
+        <div class="paper__info">
+          <p class="paper__meta">Sketchbook</p>
+        </div>
+      </div>
+
+      <div class="paper paper--sketch">
+        <div class="paper__image">
+          <img src="assets/images/sketch-010.png" alt="Sketchbook page" loading="lazy">
+        </div>
+        <div class="paper__info">
+          <p class="paper__meta">Sketchbook</p>
+        </div>
+      </div>
+
+      <div class="paper paper--sketch">
+        <div class="paper__image">
+          <img src="assets/images/sketch-011.png" alt="Sketchbook page" loading="lazy">
+        </div>
+        <div class="paper__info">
+          <p class="paper__meta">Sketchbook</p>
+        </div>
+      </div>
+
+      <div class="paper paper--sketch">
+        <div class="paper__image">
+          <img src="assets/images/sketch-012.png" alt="Sketchbook page" loading="lazy">
+        </div>
+        <div class="paper__info">
+          <p class="paper__meta">Sketchbook</p>
+        </div>
+      </div>
+
+      <div class="paper paper--sketch">
+        <div class="paper__image">
+          <img src="assets/images/sketch-013.png" alt="Sketchbook page" loading="lazy">
+        </div>
+        <div class="paper__info">
+          <p class="paper__meta">Sketchbook</p>
+        </div>
+      </div>
+
+      <div class="paper paper--sketch">
+        <div class="paper__image">
+          <img src="assets/images/Bruno-Munari.GIF" alt="Bruno Munari animation" loading="lazy">
+        </div>
+        <div class="paper__info">
+          <p class="paper__meta">Bruno Munari</p>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer class="hero-quote" style="background-color: #1A1A1A; color: #F0EDE6; width: 100%; padding: 3rem 1.5rem 2.5rem; display: flex; flex-direction: column; align-items: center; text-align: center;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1.5rem; width: 100%; max-width: 1200px;">
+      <div style="display: flex; gap: 2rem;">
+        <a href="https://github.com/brunohart" target="_blank" rel="noopener" style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(240, 237, 230, 0.5); transition: color 0.2s;">GitHub</a>
+        <a href="https://boxd.it/3QqON" target="_blank" rel="noopener" style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(240, 237, 230, 0.5); transition: color 0.2s;">Letterboxd</a>
+        <a href="mailto:hello@designedbybruno.net" style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(240, 237, 230, 0.5); transition: color 0.2s;">Email</a>
+      </div>
+      <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: rgba(240, 237, 230, 0.3);">&copy; 2026 Bruno Hart</p>
+    </div>
+  </footer>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Scripts -->
+  <script src="js/cursor.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/main.js"></script>
+
+  <!-- Desk Physics -->
+  <script>
+  (function() {
+    'use strict';
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function lerp(a, b, t) { return a + (b - a) * t; }
+    function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
+    function rand(min, max) { return Math.random() * (max - min) + min; }
+
+    const desk = document.getElementById('desk');
+    if (!desk) return;
+
+    const papers = Array.from(desk.querySelectorAll('.paper'));
+    let topZ = papers.length + 1;
+
+    // ─── Initial scatter layout ───
+    function scatterPapers() {
+      const deskRect = desk.getBoundingClientRect();
+      const dw = deskRect.width;
+      const dh = Math.max(deskRect.height, 600);
+
+      // Grid-based scatter: divide desk into zones, place papers in zones with randomness
+      const cols = Math.max(2, Math.floor(dw / 320));
+      const rows = Math.ceil(papers.length / cols);
+      const cellW = dw / cols;
+      const cellH = dh / rows;
+
+      papers.forEach((paper, i) => {
+        const col = i % cols;
+        const row = Math.floor(i / cols);
+
+        const baseX = col * cellW + rand(20, cellW - 300);
+        const baseY = row * cellH + rand(20, cellH - 200);
+
+        const x = clamp(baseX, 10, dw - 290);
+        const y = clamp(baseY, 10, dh - 200);
+        const rotation = rand(-3.5, 3.5);
+
+        paper.style.left = x + 'px';
+        paper.style.top = y + 'px';
+        paper.style.transform = 'rotate(' + rotation + 'deg) scale(1)';
+        paper.style.zIndex = i + 1;
+
+        // Store state
+        paper._physics = {
+          x: x,
+          y: y,
+          rotation: rotation,
+          vx: 0,
+          vy: 0,
+          targetX: x,
+          targetY: y,
+          isDragging: false,
+          wasDragged: false
+        };
+      });
+    }
+
+    scatterPapers();
+
+    // ─── GSAP entrance animation ───
+    if (!prefersReducedMotion) {
+      papers.forEach((paper, i) => {
+        const p = paper._physics;
+        const startY = p.y - 60 - rand(20, 80);
+        const startRotation = p.rotation + rand(-8, 8);
+
+        gsap.fromTo(paper, {
+          y: startY - p.y,
+          rotation: startRotation,
+          opacity: 0,
+          scale: 0.9
+        }, {
+          y: 0,
+          rotation: p.rotation,
+          opacity: 1,
+          scale: 1,
+          duration: 0.8 + rand(0, 0.3),
+          delay: 0.15 + i * 0.08,
+          ease: 'elastic.out(0.6, 0.4)',
+          onComplete: function() {
+            paper.style.transform = 'rotate(' + p.rotation + 'deg) scale(1)';
+          }
+        });
+      });
+    }
+
+    // ─── Drag system ───
+    let activePaper = null;
+    let dragOffsetX = 0;
+    let dragOffsetY = 0;
+    let prevMouseX = 0;
+    let prevMouseY = 0;
+    let dragStartTime = 0;
+
+    function getPointerPos(e) {
+      if (e.touches && e.touches.length > 0) {
+        return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      }
+      return { x: e.clientX, y: e.clientY };
+    }
+
+    function onPointerDown(e) {
+      const paper = e.target.closest('.paper');
+      if (!paper) return;
+
+      // Don't start drag on links
+      if (e.target.tagName === 'A') return;
+
+      const pos = getPointerPos(e);
+      const deskRect = desk.getBoundingClientRect();
+      const p = paper._physics;
+
+      activePaper = paper;
+      dragOffsetX = pos.x - deskRect.left - p.x;
+      dragOffsetY = pos.y - deskRect.top - p.y;
+      prevMouseX = pos.x;
+      prevMouseY = pos.y;
+      dragStartTime = Date.now();
+      p.isDragging = true;
+      p.wasDragged = false;
+      p.vx = 0;
+      p.vy = 0;
+
+      // Bring to front
+      topZ++;
+      paper.style.zIndex = topZ;
+      paper.classList.add('dragging');
+
+      // Lift scale
+      paper.style.transform = 'rotate(' + (p.rotation * 0.5) + 'deg) scale(1.03)';
+
+      e.preventDefault();
+    }
+
+    function onPointerMove(e) {
+      if (!activePaper) return;
+
+      const pos = getPointerPos(e);
+      const deskRect = desk.getBoundingClientRect();
+      const p = activePaper._physics;
+
+      const newX = pos.x - deskRect.left - dragOffsetX;
+      const newY = pos.y - deskRect.top - dragOffsetY;
+
+      // Velocity tracking
+      p.vx = (pos.x - prevMouseX) * 0.6;
+      p.vy = (pos.y - prevMouseY) * 0.6;
+      prevMouseX = pos.x;
+      prevMouseY = pos.y;
+
+      // Check if actually dragged
+      if (Math.abs(newX - p.x) > 3 || Math.abs(newY - p.y) > 3) {
+        p.wasDragged = true;
+      }
+
+      p.targetX = newX;
+      p.targetY = newY;
+
+      e.preventDefault();
+    }
+
+    function onPointerUp(e) {
+      if (!activePaper) return;
+
+      const p = activePaper._physics;
+      p.isDragging = false;
+      activePaper.classList.remove('dragging');
+
+      // If it was a tap (not a drag), navigate
+      if (!p.wasDragged && Date.now() - dragStartTime < 200) {
+        const href = activePaper.dataset.href;
+        if (href) {
+          window.location.href = href;
+        }
+      }
+
+      // Spring settle animation
+      const paper = activePaper;
+      const settleRotation = p.rotation + clamp(p.vx * 0.3, -5, 5);
+
+      if (!prefersReducedMotion) {
+        gsap.to(paper, {
+          rotation: settleRotation,
+          scale: 1,
+          duration: 0.6,
+          ease: 'elastic.out(0.5, 0.3)',
+          onComplete: function() {
+            p.rotation = settleRotation;
+            paper.style.transform = 'rotate(' + settleRotation + 'deg) scale(1)';
+          }
+        });
+      } else {
+        p.rotation = settleRotation;
+        paper.style.transform = 'rotate(' + settleRotation + 'deg) scale(1)';
+      }
+
+      activePaper = null;
+    }
+
+    // Event listeners
+    desk.addEventListener('mousedown', onPointerDown);
+    desk.addEventListener('touchstart', onPointerDown, { passive: false });
+    window.addEventListener('mousemove', onPointerMove);
+    window.addEventListener('touchmove', onPointerMove, { passive: false });
+    window.addEventListener('mouseup', onPointerUp);
+    window.addEventListener('touchend', onPointerUp);
+
+    // ─── Physics loop ───
+    let lastTime = performance.now();
+
+    function physicsLoop(now) {
+      const dt = Math.min((now - lastTime) / 16.667, 3); // normalize to ~60fps
+      lastTime = now;
+
+      papers.forEach(function(paper) {
+        const p = paper._physics;
+
+        if (p.isDragging) {
+          // Spring follow cursor
+          p.x = lerp(p.x, p.targetX, 0.3 * dt);
+          p.y = lerp(p.y, p.targetY, 0.3 * dt);
+        } else if (Math.abs(p.vx) > 0.1 || Math.abs(p.vy) > 0.1) {
+          // Momentum with friction
+          p.x += p.vx * dt;
+          p.y += p.vy * dt;
+          p.vx *= Math.pow(0.92, dt); // friction
+          p.vy *= Math.pow(0.92, dt);
+
+          // Boundary bounce
+          const deskRect = desk.getBoundingClientRect();
+          const pw = paper.offsetWidth;
+          const ph = paper.offsetHeight;
+
+          if (p.x < 0) { p.x = 0; p.vx *= -0.4; }
+          if (p.x > deskRect.width - pw) { p.x = deskRect.width - pw; p.vx *= -0.4; }
+          if (p.y < 0) { p.y = 0; p.vy *= -0.4; }
+          if (p.y > desk.scrollHeight - ph) { p.y = desk.scrollHeight - ph; p.vy *= -0.4; }
+
+          paper.style.left = p.x + 'px';
+          paper.style.top = p.y + 'px';
+        }
+
+        if (p.isDragging) {
+          paper.style.left = p.x + 'px';
+          paper.style.top = p.y + 'px';
+        }
+      });
+
+      requestAnimationFrame(physicsLoop);
+    }
+
+    requestAnimationFrame(physicsLoop);
+
+    // ─── Collision push (lightweight) ───
+    function checkCollisions() {
+      for (let i = 0; i < papers.length; i++) {
+        if (!papers[i]._physics.isDragging) continue;
+        const a = papers[i]._physics;
+        const aw = papers[i].offsetWidth;
+        const ah = papers[i].offsetHeight;
+
+        for (let j = 0; j < papers.length; j++) {
+          if (i === j) continue;
+          const b = papers[j]._physics;
+          if (b.isDragging) continue;
+
+          const bw = papers[j].offsetWidth;
+          const bh = papers[j].offsetHeight;
+
+          // AABB overlap check
+          if (a.x < b.x + bw && a.x + aw > b.x && a.y < b.y + bh && a.y + ah > b.y) {
+            // Push the other paper away
+            const dx = (b.x + bw / 2) - (a.x + aw / 2);
+            const dy = (b.y + bh / 2) - (a.y + ah / 2);
+            const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+            const pushForce = 2;
+
+            b.vx += (dx / dist) * pushForce;
+            b.vy += (dy / dist) * pushForce;
+          }
+        }
+      }
+
+      requestAnimationFrame(checkCollisions);
+    }
+
+    requestAnimationFrame(checkCollisions);
+
+    // ─── Resize handler ───
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(scatterPapers, 300);
+    });
+
+  })();
+  </script>
+</body>
+</html>

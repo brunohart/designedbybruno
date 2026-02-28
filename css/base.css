@@ -1,0 +1,202 @@
+/* ─── Font Loading ─── */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ─── Body ─── */
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  cursor: none;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Paper grain texture overlay — heavy, like cheap newsprint */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: var(--z-overlay);
+  opacity: 0.14;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='6' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 512px 512px;
+}
+
+/* Second grain layer — coarser, like paper fibre under a loupe */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: var(--z-overlay);
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='coarse'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23coarse)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  mix-blend-mode: multiply;
+}
+
+/* ─── Rauschenberg: Color wash blocks ─── */
+.color-wash {
+  position: absolute;
+  border-radius: 2px;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  opacity: 0.07;
+}
+
+.color-wash--orange {
+  background-color: var(--orange);
+}
+
+.color-wash--blue {
+  background-color: var(--blue);
+}
+
+.color-wash--red {
+  background-color: var(--red);
+}
+
+/* ─── Rauschenberg: Silkscreen image treatment ─── */
+.silkscreen {
+  position: relative;
+}
+
+.silkscreen img {
+  mix-blend-mode: multiply;
+  filter: contrast(1.1) saturate(0.85);
+}
+
+/* Ghost offset — misregistered print layer */
+.silkscreen::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  opacity: 0.12;
+  mix-blend-mode: multiply;
+  transform: translate(4px, 3px);
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* ─── Selection ─── */
+::selection {
+  background-color: var(--orange);
+  color: var(--white);
+}
+
+/* ─── Headings ─── */
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text);
+}
+
+h1 {
+  font-size: var(--text-display);
+  line-height: 0.95;
+}
+
+h2 {
+  font-size: var(--text-3xl);
+  line-height: var(--leading-tight);
+}
+
+h3 {
+  font-size: var(--text-xl);
+  line-height: var(--leading-snug);
+}
+
+/* ─── Body Text ─── */
+p {
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--color-text);
+}
+
+.text-lg {
+  font-size: var(--text-lg);
+  line-height: var(--leading-snug);
+}
+
+.text-muted {
+  color: var(--color-text-muted);
+}
+
+/* ─── Mono / Labels ─── */
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* ─── Links ─── */
+a {
+  text-decoration: none;
+  position: relative;
+}
+
+a.underline-draw {
+  display: inline-block;
+}
+
+a.underline-draw::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background-color: var(--color-text);
+  transition: width var(--duration-normal) var(--ease-out);
+}
+
+a.underline-draw:hover::after {
+  width: 100%;
+}
+
+/* ─── Images ─── */
+img {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* ─── Reveal Animation Base ─── */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Cursor (hidden on touch) ─── */
+@media (pointer: coarse) {
+  body {
+    cursor: auto;
+  }
+}
+
+/* ─── Smooth scroll ─── */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}

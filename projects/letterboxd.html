@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Letterboxd Live — Bruno Hart</title>
+  <meta name="description" content="A three-part capstone reimagining Letterboxd as a bridge between digital reflection and in-person cinema rituals. Self-Perception Theory, SwiftUI engineering, and interaction design.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/base.css?v=7">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css?v=7">
+  <link rel="stylesheet" href="../css/project.css?v=7">
+
+  <meta name="view-transition" content="same-origin">
+  <style>html { background-color: #F0EDE6; }</style>
+</head>
+<body>
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="eject-overlay" id="ejectOverlay"></div>
+
+  <header class="site-header">
+    <button class="eject-btn" id="ejectBtn" aria-label="Eject — back to archive">
+      <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+        <path d="M10 3l7 8H3l7-8zm-7 10h14v2H3v-2z"/>
+      </svg>
+      Eject
+    </button>
+    <nav>
+      <a href="../craft.html" class="underline-draw">Principles</a>
+      <a href="../work.html" class="underline-draw">Archive</a>
+      <a href="../experiments.html" class="underline-draw">Experiments</a>
+      <a href="mailto:hello@designedbybruno.net" class="underline-draw">Contact</a>
+    </nav>
+  </header>
+
+  <main class="page">
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- PROTOTYPE VIDEO — HERO POSITION, AUTOPLAY       -->
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <div class="project-content" style="margin-top: var(--space-3xl);">
+      <div class="video-embed" data-reveal>
+        <span class="video-embed__label">Prototype Demo</span>
+        <div class="video-embed__wrap">
+          <iframe src="https://www.youtube.com/embed/0BKvUOyEwG0?autoplay=1&mute=1" title="Letterboxd Live — SwiftUI Prototype Demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="eager"></iframe>
+        </div>
+        <p class="video-embed__caption">Prototype demonstration — the SwiftUI build in action</p>
+      </div>
+    </div>
+
+    <!-- Project Header -->
+    <section class="project-header" style="padding-top: var(--space-3xl);">
+      <div class="project-header__top">
+        <h1 class="project-header__title">Letterboxd Live</h1>
+        <span class="project-header__year">2024 — 2025</span>
+      </div>
+      <p class="project-header__subtitle">Interaction Design &middot; UX Research &middot; SwiftUI Engineering &middot; Self-Perception Theory</p>
+      <p class="project-header__intro">
+        A three-part capstone that reimagines Letterboxd as a bridge between digital reflection and in-person cinema rituals — turning filmgoing into a communal lifestyle experience. Grounded in Self-Perception Theory, the project spans research, design, and engineering to prove that behaviour-driven design can reinforce cinephile identity and drive real-world cinema attendance.
+      </p>
+
+      <dl class="project-meta">
+        <div>
+          <dt>Role</dt>
+          <dd>Lead Designer & Engineer</dd>
+        </div>
+        <div>
+          <dt>Stack</dt>
+          <dd>Swift 6, Xcode 16, SwiftUI, TMDB API, MapKit, EventKit</dd>
+        </div>
+        <div>
+          <dt>Methods</dt>
+          <dd>SPT, Double Diamond, Within & Between-Subject Experiments, Systems Interaction Mapping</dd>
+        </div>
+        <div>
+          <dt>Scope</dt>
+          <dd>3-part capstone: Research, Design & Validation, Engineering</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- Hero Image -->
+    <div class="project-hero" data-reveal>
+      <img src="../assets/images/letterboxd-hero.png" alt="Letterboxd Live — app interface showing cinema ritual features">
+    </div>
+
+    <!-- Content -->
+    <div class="project-content">
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- THE PROBLEM SPACE                               -->
+      <!-- ═══════════════════════════════════════════════ -->
+
+      <div class="content-block content-block--text" data-reveal>
+        <span class="label">The Problem</span>
+        <h2>Cinema is Disappearing from the Digital Ritual</h2>
+        <p>
+          Letterboxd is one of the most culturally valuable film platforms in the world — a space where people log, rate, and reflect on what they've watched. But despite its deep emotional and social potential, it exists after the cinematic moment.
+        </p>
+        <p>
+          There's a major gap between the act of going to the movies and the act of recording that experience. While streaming platforms have integrated frictionless watching and sharing, the in-person film ritual — buying tickets, attending screenings, reflecting with friends — remains disconnected from the digital ecosystem.
+        </p>
+        <p>
+          As a result, the platform misses the opportunity to shape real-world cinema behaviour. Cinemas lose engagement from Letterboxd's passionate, data-rich community. And audiences experience reflection and discovery as separate, not continuous.
+        </p>
+      </div>
+
+      <div class="pull-quote" data-reveal>
+        <blockquote>"Make cinema feel personal again."</blockquote>
+        <cite>Design Vision — Letterboxd Live</cite>
+      </div>
+
+      <div class="content-block content-block--text" data-reveal>
+        <p>
+          Inspired by the emotional tactility of vintage ticketing, the ritual of commitment (calendar adds), and the social reinforcement of shared taste, this project aims to create a system where digital actions lead to real-life meaning. Not just a film log, but the Strava for cinema: an app that builds cultural identity, community belonging, and third-place activity through experiential UX.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="project-content">
+      <div class="divider"></div>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- PART 1: DISCOVER — RESEARCH & THEORY            -->
+      <!-- ═══════════════════════════════════════════════ -->
+
+      <div class="content-block content-block--text" data-reveal>
+        <span class="label">Part 1 — Discover</span>
+        <h2>Cinephile as Self: The Psychology of Identity</h2>
+        <p>
+          The project is grounded in Self-Perception Theory (SPT) — Daryl Bem's framework (1967) that proposes individuals come to know their own attitudes and emotions by observing their own behaviour. Applied to interaction design, this means: if the system makes you <em>act</em> like a cinephile, you begin to <em>believe</em> you are one.
+        </p>
+        <p>
+          Part 1 established this theoretical foundation through secondary research, rapid ethnography, sketchbook-based field observations, interviews, and affinity mapping. The research surfaced a multi-variant problem space spanning the personal, communal, digital, and physical dimensions of cinema culture.
+        </p>
+      </div>
+
+      <div class="content-block content-block--text" data-reveal>
+        <h3>Research Methods</h3>
+        <ul class="methods-grid">
+          <li>Secondary Research</li>
+          <li>Rapid Ethnography</li>
+          <li>Sketchbook-based Fieldwork</li>
+          <li>Interviews</li>
+          <li>Affinity Mapping</li>
+          <li>User Personas</li>
+          <li>Empathy Mapping</li>
+          <li>Edge Case Analysis</li>
+          <li>Literature Review (SPT)</li>
+          <li>Stakeholder Analysis</li>
+          <li>Field Observations</li>
+          <li>Accessibility Thinking</li>
+        </ul>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/lb-pres-p2.png" alt="Part 1 Presentation Overview — Self-Perception Theory, Social Capital Theory, and Habit Formation applied to Letterboxd">
+        <figcaption>Part 1 Presentation — researching Self-Perception Theory, Social Capital Theory, and Habit Formation to explore how identity is shaped through behaviour, applied to Letterboxd</figcaption>
+      </div>
+
+      <!-- Literature Review PDF Embed -->
+      <div class="pdf-viewer" data-reveal>
+        <span class="pdf-viewer__label">Academic Research</span>
+        <h3 class="pdf-viewer__title">Self-Perception Theory and Letterboxd: The Art and Science of Becoming, a Cinephile</h3>
+        <p class="pdf-viewer__description">Literature review examining how SPT, Dissonance Theory, and behavioural psychology can inform design practice — establishing the theoretical framework that underpins every design decision in the project.</p>
+        <iframe class="pdf-viewer__frame" src="../assets/pdfs/letterboxd-lit-review.pdf" title="Literature Review — Self-Perception Theory and Letterboxd"></iframe>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/lb-pres-p5.png" alt="When you do it, you become it — logging, reviewing, repetition, participation mapped to identity formation">
+        <figcaption>"When you do it, you become it" — mapping Letterboxd behaviours to Self-Perception Theory: logging = ownership of taste, reviewing = expression of expertise, repetition = reinforcement of identity, participation = social proof of belonging</figcaption>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/lb-finalpres-p9.png" alt="Empathic foundations — user personas and empathy mapping grounded in research">
+        <figcaption>Empathic Foundations — user personas developed from research insights and refined through testing feedback</figcaption>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/lb-designprogress-p11.png" alt="User Persona — Ben Romero, cinephile profile">
+        <figcaption>User Persona: Ben Romero — "I don't just want to make movies. I want to make people feel like they're dreaming with their eyes open."</figcaption>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- DEFINE: SYSTEMS THINKING & PROBLEM DEFINITION   -->
+      <!-- ═══════════════════════════════════════════════ -->
+
+      <div class="content-block content-block--text" data-reveal>
+        <span class="label">Define</span>
+        <h2>Systems Thinking & Interaction Architecture</h2>
+        <p>
+          Moving from research to structure, I constructed a comprehensive systems interaction map spanning users, platforms, cinema partners, and social interaction touchpoints. This framing moved the project beyond surface-level interface design and instead visualised the interdependencies across Letterboxd's existing ecosystem.
+        </p>
+        <p>
+          By diagramming multiple user journeys and their emotional and functional states, I was able to test assumptions early, rationalise feature hierarchies, and identify modular design opportunities that would later support scalability.
+        </p>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/lb-process-p4.png" alt="Detailed Double Diamond with methods mapped and iterative design cycle">
+        <figcaption>Design Process — Double Diamond framework with research methods mapped to each phase, and iterative cycles driving continuous refinement</figcaption>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/lb-finalpres-p10.png" alt="Core problem definition and design objectives">
+        <figcaption>Core Problem — mapping the gap between cinema behaviour and Letterboxd's digital ecosystem, with design objectives</figcaption>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/lb-process-p7.png" alt="Systems Interaction Mapping and User Flow Modelling">
+        <figcaption>Systems Interaction Mapping — transforming an abstract concept into a structured, testable architecture</figcaption>
+      </div>
+
+      <!-- Design Brief PDF Embed -->
+      <div class="pdf-viewer" data-reveal>
+        <span class="pdf-viewer__label">Design Brief</span>
+        <h3 class="pdf-viewer__title">Letterboxd Live — Design Brief</h3>
+        <p class="pdf-viewer__description">The design brief that bridges research insights to design direction — establishing user objectives, psychological objectives, design opportunity, and design vision for the project.</p>
+        <iframe class="pdf-viewer__frame" src="../assets/pdfs/letterboxd-design-brief.pdf" title="Design Brief — Letterboxd Live"></iframe>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- PART 2: DEVELOP — DESIGN & VALIDATION           -->
+      <!-- ═══════════════════════════════════════════════ -->
+
+      <div class="content-block content-block--text" data-reveal>
+        <span class="label">Part 2 — Develop</span>
+        <h2>Design Development & Validation</h2>
+        <p>
+          Part 2 transforms research into lived cinematic ritual. Through iterative cycles of sketching, wireframing, prototyping, and user testing with cinema-goers, the project advanced from concept to validated design outcomes.
+        </p>
+        <p>
+          Using Self-Perception Theory and controlled within- and between-subject experiments, I tested whether the designed features could reinforce cinephile identity, increase brand affection, and motivate real-world cinema attendance — outcomes that show both psychological rigour and practical product impact.
+        </p>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/lb-process-p9.png" alt="Concept Development and Low-Fidelity Exploration">
+        <figcaption>Concept Development — low-fidelity sketches and wireframes exploring foundational interaction flows and content structures</figcaption>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/lb-finalpres-p11.png" alt="Low-fidelity sketches and design experimentations">
+        <figcaption>Lo-fi Sketches & Design Experimentations — from physical sketchbooks to digital wireframes to screen prototypes</figcaption>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/lb-process-p10.png" alt="Mid-Fidelity Prototype Testing with state models">
+        <figcaption>Mid-Fidelity Prototype Testing — scenario-based usability sessions and think-aloud testing with state models for prototyping logic</figcaption>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/lb-designprogress-p9.png" alt="Insights from tests and walkthrough of early mockups">
+        <figcaption>Testing-Led Design — early insights from user walkthroughs, with feedback mapped across Invites, Cinema Map, and Film Club features</figcaption>
+      </div>
+
+      <div class="content-block content-block--text" data-reveal>
+        <h3>Testing Protocol</h3>
+        <p>
+          The testing protocol included both within-subjects design (same participants tested across features) and between-subjects design (comparing groups with and without SPT-informed features). The tests assessed psychological implications against the design brief objectives:
+        </p>
+        <ol style="padding-left: var(--space-lg); margin-bottom: var(--space-lg);">
+          <li style="margin-bottom: var(--space-sm);">Does the feature feel integrated into the total Letterboxd brand and product experience?</li>
+          <li style="margin-bottom: var(--space-sm);">Does the feature improve willingness to engage with the app as a genuine 'social media alternative'?</li>
+          <li style="margin-bottom: var(--space-sm);">Does this increase brand affection for the Letterboxd product?</li>
+          <li style="margin-bottom: var(--space-sm);">Does this feature lead to an increased feeling of belonging/community?</li>
+          <li style="margin-bottom: var(--space-sm);">Does the feature set increase the likelihood of initiating action into regular cinema-going behaviour?</li>
+          <li style="margin-bottom: var(--space-sm);">Does the feature set increase willingness to engage deeper in the film world?</li>
+        </ol>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/lb-process-p13.png" alt="High-Fidelity and Functional Prototyping — Xcode SwiftUI implementation with on-device testing">
+        <figcaption>High-Fidelity Prototyping (Xcode) — translated into a coded SwiftUI build for on-device testing. Participants responded positively to the tactile, filmic feel — particularly flipcard gestures, haptic feedback, and Calendar integration</figcaption>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/lb-process-p14.png" alt="Validation and Final Refinement — summative testing with design peers and external testers">
+        <figcaption>Validation & Final Refinement — summative testing with design peers, lecturers, and external testers. Participants described the system as "emotionally engaging, socially connective, and highly scalable"</figcaption>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/lb-finalpres-p19.png" alt="Refined Loop Summary — testing iterations and feedback cycles">
+        <figcaption>Refined Loop Summary — four testing cycles from concept validation through final polish, with feedback insights driving each iteration</figcaption>
+      </div>
+
+      <div class="content-block content-block--text" data-reveal>
+        <h3>Graphic Design & Visual Identity</h3>
+        <p>
+          Every element carries the tension between analog warmth and digital precision that defines the project's identity — from the orange-amber painterly cover to the collage-influenced page compositions.
+        </p>
+      </div>
+
+      <div class="content-block content-block--image-grid grid-2" data-reveal>
+        <figure>
+          <img src="../assets/images/lb-designprogress-p2.png" alt="Letterboxd Designed by Bruno — orange painterly cover">
+          <figcaption>Design Progress Cover — "Letterboxd, Designed by Bruno"</figcaption>
+        </figure>
+        <figure>
+          <img src="../assets/images/lb-designprogress-p3.png" alt="Making the invisible visible through design — collage artwork">
+          <figcaption>"Making the invisible visible through Design" — collage-influenced graphic work</figcaption>
+        </figure>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- PART 3: DELIVER — ENGINEERING & PROTOTYPE       -->
+      <!-- ═══════════════════════════════════════════════ -->
+
+      <div class="content-block content-block--text" data-reveal>
+        <span class="label">Part 3 — Deliver</span>
+        <h2>Engineering the System</h2>
+        <p>
+          Built with Swift 6, Xcode 16, and the latest SwiftUI framework, the final phase brought the validated design to life as a functional prototype. The app follows an MVVM architecture with a consistent colour and typography system maintained across views through a custom Design Token structure.
+        </p>
+        <p>
+          The prototype demonstrates the full interaction model — from discovering screenings on the Cinema Map to hosting intimate film gatherings through tactile invite craftsmanship, to logging reflections in a redesigned diary experience.
+        </p>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/lb-finalpres-p3.png" alt="Letterboxd Live — four app screens showing Cinema Map, profiles, events, and diary">
+        <figcaption>Letterboxd Live Prototype — Cinema Map, Profiles, Events, and Diary screens</figcaption>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/lb-finalpres-p17.png" alt="A Tactile, Cinematic UX System Built in Swift — feature overview with screens">
+        <figcaption>A Tactile, Cinematic UX System Built in Swift — each screen designed as part of a single system where tactility, rhythm, and restraint guide every interaction</figcaption>
+      </div>
+
+      <div class="content-block content-block--text" data-reveal>
+        <h3>Technical Architecture</h3>
+        <p>
+          The MVVM pattern separates data, logic, and UI for modularity and testability. The Movie Database (TMDB) API powers live film data via async/await networking, while Apple's native frameworks bridge digital and real-world interactions.
+        </p>
+      </div>
+
+      <div class="metrics" data-reveal>
+        <div class="metric">
+          <div class="metric__value">MVVM</div>
+          <div class="metric__label">Architecture Pattern</div>
+        </div>
+        <div class="metric">
+          <div class="metric__value">TMDB</div>
+          <div class="metric__label">Live Film Data API</div>
+        </div>
+        <div class="metric">
+          <div class="metric__value">MapKit</div>
+          <div class="metric__label">Cinema Map Integration</div>
+        </div>
+        <div class="metric">
+          <div class="metric__value">EventKit</div>
+          <div class="metric__label">Calendar & Scheduling</div>
+        </div>
+        <div class="metric">
+          <div class="metric__value">Haptics</div>
+          <div class="metric__label">Tactile Feedback System</div>
+        </div>
+        <div class="metric">
+          <div class="metric__value">Swift 6</div>
+          <div class="metric__label">Latest Language Version</div>
+        </div>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/lb-techspec-p1.png" alt="Technical Rationale — SwiftUI architecture, MVVM, TMDB API, system integrations">
+        <figcaption>Technical Rationale — platform choices, architecture decisions, data networking, and system integrations</figcaption>
+      </div>
+
+      <!-- Feature Detail: Visual & Motion System -->
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/lb-process-p15.png" alt="Visual & Motion System — core palette, typography, texture, motion philosophy">
+        <figcaption>Visual & Motion System — duotone palette, SF Pro + Abril Display typography, grain overlays, and cinematic motion pacing</figcaption>
+      </div>
+
+      <!-- Feature Detail: Cinema Map -->
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/lb-process-p17.png" alt="Cinema Map — MapKit integration with Letterboxd-style pins">
+        <figcaption>Cinema Map — bridging digital and physical cinema-going with custom MapKit pins, venue cards, and booking flows</figcaption>
+      </div>
+
+      <!-- Feature Detail: Events & Invites -->
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/lb-process-p18.png" alt="Upcoming Events / Invites Screen — scrollable card stack with haptic feedback">
+        <figcaption>Events & Invites — scrollable card stack with hover lift, flip transitions, haptic feedback, and "flick down" paper physics</figcaption>
+      </div>
+
+      <!-- Feature Detail: Film Club -->
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/lb-process-p16.png" alt="Film Club View — organising collective film experiences">
+        <figcaption>Film Club — turning shared taste into organised community experience with spring-animated controls and TMDB poster carousels</figcaption>
+      </div>
+
+      <!-- Feature Detail: Create Event / Invite Flow -->
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/lb-process-p19.png" alt="Create Event / Invite Flow — crafting an artifact through liquid-glass popup">
+        <figcaption>Create Event Flow — organising a film night feels like crafting an artifact. Liquid-glass popup, TMDB-connected film search, and collectible ticket theme selectors</figcaption>
+      </div>
+
+      <!-- Feature Detail: Pack Nights -->
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/lb-process-p20.png" alt="Pack Nights — experiential layer that ritualises the social act of film-watching">
+        <figcaption>Pack Nights (Experiential Layer) — ritualising the social act of film-watching with sensory depth. Custom sound cues, ambient animations, and post-film reflective prompts. "Not gamified — ceremonial. A UX of atmosphere."</figcaption>
+      </div>
+
+      <!-- Feature Detail: Event Tokens -->
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/lb-process-p21.png" alt="Event Tokens — collectible keepsake stubs materialising memory and participation">
+        <figcaption>Event Tokens (Collectibles) — materialising memory and participation. Auto-generated duotone tokens with TMDB posters, metallic gleam animations, and unique serial codes. "A living cinematic artifact — like a keepsake stub from a night worth remembering."</figcaption>
+      </div>
+
+      <!-- Feature Detail: Diary Reflection -->
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/lb-process-p22.png" alt="Diary Reflection — post-film reflection with publish scheduling and warm-to-dark transition">
+        <figcaption>Diary Reflection — enabling immediate but unpressured reflection. Warm sepia fades to Letterboxd dark once published — a metaphor for private → public. "Captures authenticity, not performance."</figcaption>
+      </div>
+
+      <!-- Final Flow Overview -->
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/lb-process-p23.png" alt="Final Flow Executive Overview — 30-screen information architecture">
+        <figcaption>Final Flow Overview — the complete information architecture spanning 30 screens across Films, Cinema Map, Film Club, Events, Diary, Pack Nights, and Tokens</figcaption>
+      </div>
+
+      <!-- Accessibility -->
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/lb-finalpres-p18.png" alt="Accessibility Through Code — VoiceOver, reduced motion, touch targets, colour contrast">
+        <figcaption>Accessibility Through Code — designed into the system, not layered on top. VoiceOver, reduced motion, 44pt touch targets, WCAG-tested contrast</figcaption>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/lb-process-p12.png" alt="Iterating in Component Design and Code — high-fidelity screens collage">
+        <figcaption>Iterating in Component Design and Code — the full breadth of screens, components, and interactions in the final prototype</figcaption>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/lb-process-p11.png" alt="Iterating in Component Design and Code — Xcode build errors">
+        <figcaption>The Process of Creation — the reality of engineering: hundreds of build errors resolved through iterative development</figcaption>
+      </div>
+
+      <!-- GitHub CTA -->
+      <a href="https://github.com/brunohart/Letterboxd-live/tree/main" target="_blank" rel="noopener" class="project-cta" data-reveal>
+        <svg viewBox="0 0 16 16" fill="currentColor">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+        View Prototype on GitHub
+      </a>
+
+      <!-- Design Walkthrough Video -->
+      <div class="video-embed" data-reveal>
+        <span class="video-embed__label">Design Walkthrough</span>
+        <div class="video-embed__wrap">
+          <iframe src="https://www.youtube.com/embed/9g4GdnLz9io" title="Letterboxd Live — Design Walkthrough" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <p class="video-embed__caption">Design walkthrough — demonstrating the full interaction model and feature suite</p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__links">
+      <a href="https://github.com/brunohart" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:hello@designedbybruno.net">Email</a>
+    </div>
+    <p class="site-footer__credit">&copy; 2026 Bruno Hart</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="../js/cursor.js"></script>
+  <script src="../js/animations.js"></script>
+  <script src="../js/nav.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+  (function() {
+    var ejectBtn = document.getElementById('ejectBtn');
+    var ejectOverlay = document.getElementById('ejectOverlay');
+    if (!ejectBtn || typeof gsap === 'undefined') return;
+    ejectBtn.addEventListener('click', function() {
+      gsap.to(ejectOverlay, {
+        background: 'rgba(240, 237, 230, 0.95)',
+        backdropFilter: 'blur(6px)',
+        webkitBackdropFilter: 'blur(6px)',
+        duration: 0.5,
+        ease: 'power2.inOut',
+        onComplete: function() {
+          window.location.href = '../work.html';
+        }
+      });
+      gsap.to('main', {
+        y: 30,
+        opacity: 0,
+        duration: 0.4,
+        ease: 'power2.in'
+      });
+    });
+  })();
+  </script>
+</body>
+</html>

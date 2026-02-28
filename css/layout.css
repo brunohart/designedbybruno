@@ -1,0 +1,134 @@
+/* ─── Container ─── */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.container--narrow {
+  max-width: var(--container-narrow);
+}
+
+/* ─── Page wrapper ─── */
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── Header ─── */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-nav);
+  padding: var(--space-lg) var(--gutter);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  mix-blend-mode: difference;
+  color: var(--white);
+}
+
+.site-header .logo {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: var(--text-sm);
+  letter-spacing: 0.02em;
+  font-weight: 500;
+}
+
+.site-header nav {
+  display: flex;
+  gap: var(--space-xl);
+}
+
+.site-header nav a {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.site-header nav a:hover {
+  color: var(--red);
+}
+
+/* ─── Sections ─── */
+.section {
+  padding-block: var(--space-4xl);
+}
+
+.section--full {
+  padding-block: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+/* ─── Grid utilities ─── */
+.grid {
+  display: grid;
+  gap: var(--gutter);
+}
+
+.grid--2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid--3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid--asymmetric {
+  grid-template-columns: 1.2fr 0.8fr;
+  grid-template-rows: auto auto;
+}
+
+/* ─── Flex utilities ─── */
+.flex {
+  display: flex;
+}
+
+.flex--between {
+  justify-content: space-between;
+}
+
+.flex--center {
+  align-items: center;
+}
+
+.flex--col {
+  flex-direction: column;
+}
+
+.flex--gap-sm { gap: var(--space-sm); }
+.flex--gap-md { gap: var(--space-md); }
+.flex--gap-lg { gap: var(--space-lg); }
+
+/* ─── Spacing utilities ─── */
+.mt-xl  { margin-top: var(--space-xl); }
+.mt-2xl { margin-top: var(--space-2xl); }
+.mt-3xl { margin-top: var(--space-3xl); }
+.mb-lg  { margin-bottom: var(--space-lg); }
+.mb-xl  { margin-bottom: var(--space-xl); }
+.mb-2xl { margin-bottom: var(--space-2xl); }
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .grid--2,
+  .grid--3,
+  .grid--asymmetric {
+    grid-template-columns: 1fr;
+  }
+
+  .section {
+    padding-block: var(--space-2xl);
+  }
+
+  .site-header nav {
+    gap: var(--space-lg);
+  }
+}

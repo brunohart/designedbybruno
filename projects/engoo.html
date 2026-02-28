@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Engoo Customer UX — Bruno Hart</title>
+  <meta name="description" content="Reducing cognitive overload in Engoo's lesson booking experience through user research and iterative prototyping.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/base.css?v=7">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css?v=7">
+  <link rel="stylesheet" href="../css/project.css?v=7">
+
+  <meta name="view-transition" content="same-origin">
+  <style>html { background-color: #F0EDE6; }</style>
+</head>
+<body>
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="eject-overlay" id="ejectOverlay"></div>
+
+  <header class="site-header">
+    <button class="eject-btn" id="ejectBtn" aria-label="Eject — back to archive">
+      <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+        <path d="M10 3l7 8H3l7-8zm-7 10h14v2H3v-2z"/>
+      </svg>
+      Eject
+    </button>
+    <nav>
+      <a href="../craft.html" class="underline-draw">Principles</a>
+      <a href="../work.html" class="underline-draw">Archive</a>
+      <a href="../experiments.html" class="underline-draw">Experiments</a>
+      <a href="mailto:hello@designedbybruno.net" class="underline-draw">Contact</a>
+    </nav>
+  </header>
+
+  <main class="page">
+
+    <section class="project-header">
+      <div class="project-header__top">
+        <h1 class="project-header__title">Engoo Customer UX</h1>
+        <span class="project-header__year">2024</span>
+      </div>
+      <p class="project-header__subtitle">UX Research &middot; Journey Mapping &middot; Iterative Prototyping &middot; Cognitive Load Reduction</p>
+      <p class="project-header__intro">
+        Engoo is Japan's largest 1-on-1 online English education provider, delivering over 25,000 lessons daily to students worldwide. This project investigates how to reduce cognitive overload within Engoo's lesson booking experience — transforming a siloed materials module into a strategic, personalised learning gateway through system mapping, UX law analysis, and iterative Figma prototyping.
+      </p>
+
+      <dl class="project-meta">
+        <div>
+          <dt>Role</dt>
+          <dd>UX Designer & Researcher</dd>
+        </div>
+        <div>
+          <dt>Methods</dt>
+          <dd>System Mapping, Heuristic Evaluation, Journey Mapping, UX Laws Analysis</dd>
+        </div>
+        <div>
+          <dt>Tools</dt>
+          <dd>Figma (Variables, Constraints, Complex Components), Photoshop</dd>
+        </div>
+        <div>
+          <dt>Outcome</dt>
+          <dd>Redesigned booking flow grounded in behavioural insight and platform constraints</dd>
+        </div>
+      </dl>
+    </section>
+
+    <div class="project-hero" data-reveal>
+      <img src="../assets/Engoo-cover-image.png" alt="Engoo booking interface redesign — portfolio overview">
+    </div>
+
+    <div class="project-content">
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- THE PROBLEM                                     -->
+      <!-- ═══════════════════════════════════════════════ -->
+
+      <div class="content-block content-block--text" data-reveal>
+        <span class="label">The Problem</span>
+        <h2>Designing Within a Business System</h2>
+        <p>
+          Engoo's Materials module — the system through which students select lesson content before booking — functions in isolation from the booking flow, tutor profiles, and subscription tiers. The result is a fragmented experience where users must navigate between disconnected interfaces to make a single booking decision.
+        </p>
+        <p>
+          The core user — an intermediate-level, time-constrained working professional — faces cognitive overload at every step: too many material categories without clear differentiation, subscription tier confusion between Standard and Premium content, and no relationship between tutor expertise and material suitability.
+        </p>
+        <p>
+          Through UX research, system mapping, and direct engagement with the Engoo platform, I identified the structural friction points: unclear material categorisation, inconsistent visual hierarchy, a lack of progressive disclosure, and a fundamentally siloed information architecture that forces users to hold too much in working memory.
+        </p>
+      </div>
+
+      <div class="pull-quote" data-reveal>
+        <blockquote>"Present the right material at the right time, with clarity, context, and connection."</blockquote>
+        <cite>Design Vision — Engoo Customer UX</cite>
+      </div>
+
+      <div class="content-block content-block--text" data-reveal>
+        <h3>Research Methods</h3>
+        <ul class="methods-grid">
+          <li>System Mapping</li>
+          <li>Heuristic Evaluation</li>
+          <li>Journey Mapping</li>
+          <li>UX Laws Analysis</li>
+          <li>Card Sorting</li>
+          <li>Think-Aloud Testing</li>
+          <li>First-Click Tests</li>
+          <li>Cognitive Walkthrough</li>
+        </ul>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/engoo-research-p1.png" alt="UX Research Analysis for Engoo's Material Selection — cover page">
+        <figcaption>Research & Analysis — investigating cognitive load in Engoo's material selection flow</figcaption>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/engoo-research-p2.png" alt="The UX Problem: Friction in Choosing Materials — analysis of decision paralysis">
+        <figcaption>The UX Problem — friction in choosing materials: too many choices, unclear differentiation, and subscription confusion creating decision paralysis</figcaption>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/engoo-research-p3.png" alt="An unintegrated and siloed experience — screenshots of disconnected Engoo interfaces">
+        <figcaption>An Unintegrated Experience — the Materials module and Tutor booking exist as separate, siloed systems with no cross-referencing or contextual linking</figcaption>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/engoo-research-p4.png" alt="Who This Affects — user impact analysis across different learner profiles">
+        <figcaption>Who This Affects — mapping the impact of cognitive overload across different learner profiles, from first-time users to returning professionals</figcaption>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- DEFINE: UX LAWS MAPPING                         -->
+      <!-- ═══════════════════════════════════════════════ -->
+
+      <div class="content-block content-block--text" data-reveal>
+        <span class="label">Define</span>
+        <h2>Mapping UX Laws to Platform Friction</h2>
+        <p>
+          To move from observed friction to actionable design direction, I mapped seven specific platform problems against established UX laws — Hick's Law, Miller's Law, Jakob's Law, the Law of Consistency, and the Aesthetic-Usability Effect. Each mapping produced a concrete design action grounded in cognitive science rather than aesthetic preference.
+        </p>
+        <p>
+          This framework ensured every design decision could be traced back to a specific user behaviour and a specific principle — making the rationale transparent and the outcomes measurable. The analysis also surfaced mobile accessibility concerns, where Engoo's desktop-first interface fails to translate effectively to the mobile context where many users book lessons.
+        </p>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/engoo-design-p4.png" alt="UX Laws Mapped to Assignment One Insights — seven problems mapped to cognitive principles with design actions">
+        <figcaption>UX Laws Mapped to Insights — seven friction points mapped to cognitive principles (Hick's Law, Miller's Law, Jakob's Law) with specific design actions for each</figcaption>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- DESIGN                                          -->
+      <!-- ═══════════════════════════════════════════════ -->
+
+      <div class="content-block content-block--text" data-reveal>
+        <span class="label">Design</span>
+        <h2>From Siloed Tool to Strategic Gateway</h2>
+        <p>
+          The redesign reframes Engoo's Materials module from an isolated content library into an integrated gateway within the booking flow. Five design requirements guided the work: Access Clarity (reducing choice overload through progressive disclosure), Tutor-Material Matching (connecting expertise to content), Interface Unification (bridging the siloed systems), Upgrade Nudging (transparent subscription differentiation), and Mobile-First Adaptation.
+        </p>
+        <p>
+          The Figma prototype was built with variables, constraints, and complex component files to demonstrate a production-ready interaction model. Every screen was designed within Engoo's existing brand system — respecting the platform's visual language while restructuring the information architecture around user goals rather than internal taxonomy.
+        </p>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/engoo-design-p1.png" alt="Engoo Ideation & Development — assignment cover slide">
+        <figcaption>Ideation & Development — translating research insights into a structured design direction</figcaption>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/engoo-design-p2.png" alt="Project Overview & Challenge — defining the design problem and constraints">
+        <figcaption>Project Overview & Challenge — scoping the redesign within Engoo's business constraints, subscription model, and global scalability requirements</figcaption>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/engoo-design-p3.png" alt="Revised Brief & Project Scope — narrowing focus to achievable outcomes">
+        <figcaption>Revised Brief & Project Scope — a laser-focused, achievable roadmap grounded in the research phase findings</figcaption>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- OUTCOME                                         -->
+      <!-- ═══════════════════════════════════════════════ -->
+
+      <div class="content-block content-block--text" data-reveal>
+        <span class="label">Outcome</span>
+        <h2>A Personalised Learning Gateway</h2>
+        <p>
+          The redesigned experience transforms Engoo's Materials module from a siloed content browser into a strategic, personalised learning gateway. By introducing progressive disclosure, tutor-material matching, and goal-based categorisation, the flow reduces cognitive load at every decision point while respecting the platform's existing brand identity and subscription model.
+        </p>
+        <p>
+          The project demonstrates how systematic UX analysis — grounded in cognitive science and validated through iterative prototyping — can produce meaningful improvements within the constraints of a live, large-scale product.
+        </p>
+      </div>
+
+      <div class="content-block" data-reveal>
+        <span class="label">Interactive Prototype</span>
+        <h2>Explore the prototype</h2>
+        <div class="video-embed">
+          <div class="video-embed__wrap">
+            <iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://embed.figma.com/proto/ykbnAtcB7wX7FZpiOPdFBY/Engoo-Customer-UX?page-id=0%3A1&node-id=135-5049&starting-point-node-id=135%3A5049&scaling=scale-down&content-scaling=fixed&show-proto-sidebar=1&embed-host=share" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__links">
+      <a href="https://github.com/brunohart" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:hello@designedbybruno.net">Email</a>
+    </div>
+    <p class="site-footer__credit">&copy; 2026 Bruno Hart</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="../js/cursor.js"></script>
+  <script src="../js/animations.js"></script>
+  <script src="../js/nav.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+  (function() {
+    var ejectBtn = document.getElementById('ejectBtn');
+    var ejectOverlay = document.getElementById('ejectOverlay');
+    if (!ejectBtn || typeof gsap === 'undefined') return;
+    ejectBtn.addEventListener('click', function() {
+      gsap.to(ejectOverlay, {
+        background: 'rgba(240, 237, 230, 0.95)',
+        backdropFilter: 'blur(6px)',
+        webkitBackdropFilter: 'blur(6px)',
+        duration: 0.5,
+        ease: 'power2.inOut',
+        onComplete: function() {
+          window.location.href = '../work.html';
+        }
+      });
+      gsap.to('main', {
+        y: 30,
+        opacity: 0,
+        duration: 0.4,
+        ease: 'power2.in'
+      });
+    });
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Feel of Things — Bruno Hart</title>
+  <meta name="description" content="An interaction design system built on friction, warmth, and the weight of real materials. Nine pillars defining how digital interfaces should feel.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css?v=7">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/craft.css">
+
+  <meta name="view-transition" content="same-origin">
+  <style>html { background-color: #F0EDE6; }</style>
+</head>
+<body>
+  <div class="cursor" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a href="./" class="back-link back-link--header">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10 12L6 8l4-4"/>
+      </svg>
+      Back to home
+    </a>
+    <nav>
+      <a href="craft.html" class="underline-draw">Principles</a>
+      <a href="work.html" class="underline-draw">Archive</a>
+      <a href="experiments.html" class="underline-draw">Experiments</a>
+      <a href="mailto:hello@designedbybruno.net" class="underline-draw">Contact</a>
+    </nav>
+  </header>
+
+  <main class="page">
+
+    <!-- Hero -->
+    <section class="craft-hero" data-reveal>
+      <div class="color-wash color-wash--orange" style="width: 35%; height: 50%; top: 5%; right: -5%; transform: rotate(1.8deg);" aria-hidden="true"></div>
+      <h1 class="craft-hero__title" data-text="The Feel of Things.">
+        The Feel<br>of Things<span class="accent">.</span>
+      </h1>
+      <p class="craft-hero__lede">
+        An interaction design system built on friction, warmth, and the weight of real materials. This is how I believe interfaces should feel &mdash; not frictionless and invisible, but textured, weighted, and alive. Nine pillars, organised into three acts, that define the space between a click and a feeling.
+      </p>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- ACT I — MATERIAL                                -->
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <section class="craft-act" id="act-material">
+      <div class="color-wash color-wash--orange" style="width: 45%; height: 80%; top: 5%; left: -8%; transform: rotate(-1.5deg);" aria-hidden="true"></div>
+      <div class="craft-act__header" data-reveal>
+        <span class="section-label">Act I</span>
+        <h2 class="craft-act__title">Material</h2>
+        <p class="craft-act__subtitle">What the surface is made of</p>
+      </div>
+      <p class="craft-act__intro" data-reveal>
+        The foundation: interaction design begins with the material properties of the interface itself. Before anything moves, before anything responds, there is a surface. And that surface has qualities &mdash; texture, temperature, history. The screen is not glass. It is paper, linen, stone.
+      </p>
+
+      <div class="divider"></div>
+
+      <!-- ─── 01. Grain ─── -->
+      <article class="craft-pillar" data-reveal>
+        <span class="craft-pillar__number">01 — Grain</span>
+        <h3 class="craft-pillar__title">Surfaces have texture</h3>
+        <div class="craft-pillar__essay">
+          <p>
+            Screens aren't glass &mdash; they're paper, linen, stone. The noise overlay, the parchment warmth, the multiply blend &mdash; these make the screen a material, not a void. Grain is the first thing you feel before you touch anything. It sets the emotional register of every interaction that follows.
+          </p>
+          <p>
+            A smooth, textureless surface feels clinical. A surface with grain feels crafted. The difference between a hospital wall and a hand-thrown ceramic bowl &mdash; both functional, but one has a soul.
+          </p>
+        </div>
+        <div class="craft-demo" data-cursor-hover>
+          <canvas class="craft-demo__canvas" id="demo-grain" aria-label="Interactive grain texture demonstration"></canvas>
+          <div class="craft-demo__controls">
+            <label class="craft-demo__label">
+              <span>Grain density</span>
+              <input type="range" id="grain-density" min="0" max="100" value="50" class="craft-demo__slider">
+            </label>
+          </div>
+          <p class="craft-demo__caption">Move your mouse across the surface. Adjust grain density to feel how texture changes the emotional register.</p>
+        </div>
+      </article>
+
+      <!-- ─── 02. Warmth ─── -->
+      <article class="craft-pillar" data-reveal>
+        <span class="craft-pillar__number">02 — Warmth</span>
+        <h3 class="craft-pillar__title">Interfaces have temperature</h3>
+        <div class="craft-pillar__essay">
+          <p>
+            Parchment (#F0EDE6) feels different from clinical white (#FFFFFF). Burnt orange feels different from electric blue. The palette is a thermostat. Warmth is not a visual property &mdash; it's an emotional one. The same content, the same layout, the same typography &mdash; but change the temperature and you change the feeling.
+          </p>
+          <p>
+            Cold interfaces demand efficiency. Warm interfaces invite lingering. Neither is wrong, but the choice must be deliberate. Temperature is the first emotional signal an interface sends, before a single word is read.
+          </p>
+        </div>
+        <div class="craft-demo" data-cursor-hover>
+          <div class="craft-demo__warmth" id="demo-warmth">
+            <div class="warmth-card" id="warmth-card">
+              <div class="warmth-card__image"></div>
+              <div class="warmth-card__body">
+                <h4 class="warmth-card__title">Sunday Morning</h4>
+                <p class="warmth-card__text">A quiet moment with coffee and light through the window.</p>
+                <span class="warmth-card__meta">3 min read</span>
+              </div>
+            </div>
+          </div>
+          <div class="craft-demo__controls">
+            <label class="craft-demo__label">
+              <span>Temperature</span>
+              <input type="range" id="warmth-slider" min="0" max="100" value="70" class="craft-demo__slider">
+            </label>
+            <div class="craft-demo__temp-labels">
+              <span>Cold</span>
+              <span>Warm</span>
+            </div>
+          </div>
+          <p class="craft-demo__caption">Drag the temperature slider. Same card, completely different emotional response.</p>
+        </div>
+      </article>
+
+      <!-- ─── 03. Patina ─── -->
+      <article class="craft-pillar" data-reveal>
+        <span class="craft-pillar__number">03 — Patina</span>
+        <h3 class="craft-pillar__title">The best objects improve with use</h3>
+        <div class="craft-pillar__essay">
+          <p>
+            Patina is the accumulation of time and touch &mdash; a brass door handle worn smooth, a book with cracked spine, a leather wallet that moulds to your pocket. Digital surfaces should feel well-worn and loved, not factory-fresh.
+          </p>
+          <p>
+            Most interfaces reset every time you visit. Nothing remembers your presence. But what if the interface accumulated traces of your interaction? What if hover marks left faint impressions, edges softened with repeated touch? Not gimmick &mdash; memory.
+          </p>
+        </div>
+        <div class="craft-demo" data-cursor-hover>
+          <canvas class="craft-demo__canvas" id="demo-patina" aria-label="Interactive patina demonstration &mdash; interact to leave traces"></canvas>
+          <p class="craft-demo__caption">Hover and click across the surface. Watch it accumulate the traces of your presence. This demo develops patina as you read.</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- ACT II — FORCE                                  -->
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <section class="craft-act" id="act-force">
+      <div class="color-wash color-wash--blue" style="width: 40%; height: 70%; top: 8%; right: -6%; transform: rotate(2deg);" aria-hidden="true"></div>
+      <div class="craft-act__header" data-reveal>
+        <span class="section-label">Act II</span>
+        <h2 class="craft-act__title">Force</h2>
+        <p class="craft-act__subtitle">How things move and resist</p>
+      </div>
+      <p class="craft-act__intro" data-reveal>
+        The physics: how elements behave when you push, pull, drag, and release them. Movement in interfaces is not decoration &mdash; it is information. The way something moves tells you what it is, how heavy it is, and how much it matters.
+      </p>
+
+      <div class="divider"></div>
+
+      <!-- ─── 04. Weight ─── -->
+      <article class="craft-pillar" data-reveal>
+        <span class="craft-pillar__number">04 — Weight</span>
+        <h3 class="craft-pillar__title">Digital objects have mass</h3>
+        <div class="craft-pillar__essay">
+          <p>
+            A heavy element overshoots differently than a light one. The cursor trails because it has weight. Cards settle because they've been dropped, not placed. Weight is an interaction property, not a visual one &mdash; two objects can look identical but feel completely different.
+          </p>
+          <p>
+            Weight communicates importance. A notification that slides in like a feather feels dismissible. One that lands with a thud demands attention. The physics of arrival is the first word in the conversation.
+          </p>
+        </div>
+        <div class="craft-demo" data-cursor-hover>
+          <div class="craft-demo__weight" id="demo-weight">
+            <div class="weight-object weight-object--heavy" id="weight-heavy">
+              <span class="weight-object__label">Heavy</span>
+              <span class="weight-object__desc">High inertia, deep overshoot</span>
+            </div>
+            <div class="weight-object weight-object--light" id="weight-light">
+              <span class="weight-object__label">Light</span>
+              <span class="weight-object__desc">Snappy, quick, minimal overshoot</span>
+            </div>
+          </div>
+          <p class="craft-demo__caption">Drag both objects. Same size, same appearance &mdash; completely different feel. Weight is invisible until you touch it.</p>
+        </div>
+      </article>
+
+      <!-- ─── 05. Friction ─── -->
+      <article class="craft-pillar" data-reveal>
+        <span class="craft-pillar__number">05 — Friction</span>
+        <h3 class="craft-pillar__title">Not all movement should be frictionless</h3>
+        <div class="craft-pillar__essay">
+          <p>
+            Friction is the difference between sliding on ice and walking on grass. Deliberate friction slows you down where slowing down matters &mdash; it makes the action feel considered, not careless. The design industry's obsession with "frictionless" has made everything feel like skating on ice: fast, but precarious.
+          </p>
+          <p>
+            The right amount of friction is the difference between a disposable gesture and a meaningful action. A little resistance says: this matters, so take a moment.
+          </p>
+        </div>
+        <div class="craft-demo" data-cursor-hover>
+          <div class="craft-demo__friction" id="demo-friction">
+            <div class="friction-track">
+              <div class="friction-handle" id="friction-handle"></div>
+            </div>
+          </div>
+          <div class="craft-demo__controls">
+            <label class="craft-demo__label">
+              <span>Friction coefficient</span>
+              <input type="range" id="friction-coeff" min="0" max="100" value="40" class="craft-demo__slider">
+            </label>
+            <div class="craft-demo__temp-labels">
+              <span>Ice</span>
+              <span>Grass</span>
+            </div>
+          </div>
+          <p class="craft-demo__caption">Drag the handle and release. Adjust the friction coefficient to feel the difference between weightless and intentional.</p>
+        </div>
+      </article>
+
+      <!-- ─── 06. Fluid ─── -->
+      <article class="craft-pillar" data-reveal>
+        <span class="craft-pillar__number">06 — Fluid</span>
+        <h3 class="craft-pillar__title">Some interactions should flow like water</h3>
+        <div class="craft-pillar__essay">
+          <p>
+            Continuous, uninterruptible, responsive to the shape of their container. Scroll, gesture, parallax &mdash; these are fluid dynamics, not state changes. A fluid interaction never snaps; it pours. It responds to the velocity and direction of your intent, not just the binary of start and stop.
+          </p>
+          <p>
+            The difference between a light switch and a dimmer. Between a doorbell and a theremin. Fluid interactions acknowledge that human movement is continuous, and the interface should honour that continuity.
+          </p>
+        </div>
+        <div class="craft-demo" data-cursor-hover>
+          <canvas class="craft-demo__canvas" id="demo-fluid" aria-label="Interactive fluid simulation responding to mouse movement"></canvas>
+          <p class="craft-demo__caption">Move your mouse through the canvas. Elements pour and settle, demonstrating continuous interaction &mdash; not state changes.</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- ACT III — PRESENCE                              -->
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <section class="craft-act" id="act-presence">
+      <div class="color-wash color-wash--red" style="width: 38%; height: 65%; top: 10%; left: -5%; transform: rotate(-1.2deg);" aria-hidden="true"></div>
+      <div class="craft-act__header" data-reveal>
+        <span class="section-label">Act III</span>
+        <h2 class="craft-act__title">Presence</h2>
+        <p class="craft-act__subtitle">The space between interactions</p>
+      </div>
+      <p class="craft-act__intro" data-reveal>
+        The soul: what the interface communicates through what it doesn't do. Presence is the quality of being there &mdash; of an interface that listens, breathes, and waits. It is found in the gaps, the pauses, the deliberate absences that give weight to what surrounds them.
+      </p>
+
+      <div class="divider"></div>
+
+      <!-- ─── 07. Tactility ─── -->
+      <article class="craft-pillar" data-reveal>
+        <span class="craft-pillar__number">07 — Tactility</span>
+        <h3 class="craft-pillar__title">The difference between pressing a key and pressing a button on a coat</h3>
+        <div class="craft-pillar__essay">
+          <p>
+            Interactions should have the feedback quality of physical contact &mdash; pressure, give, response. Not just "click happened" but "you pressed something real." The difference between a membrane keyboard and a mechanical one. Between a touchscreen and a piano key.
+          </p>
+          <p>
+            Tactility is honesty. When you press a button that depresses, shadows shift, and springs back &mdash; your body trusts the interface. When you press a flat rectangle and a spinner appears, you're guessing.
+          </p>
+        </div>
+        <div class="craft-demo" data-cursor-hover>
+          <div class="craft-demo__tactility" id="demo-tactility">
+            <button class="tactile-button" id="tactile-btn" type="button">
+              <span class="tactile-button__label">Press and hold</span>
+            </button>
+            <div class="tactile-feedback" id="tactile-feedback" aria-live="polite"></div>
+          </div>
+          <p class="craft-demo__caption">Press and hold the button. Press lightly and it yields softly. Press firmly and it responds with conviction. Feel the difference between a dead click and a tactile press.</p>
+        </div>
+      </article>
+
+      <!-- ─── 08. Resistance ─── -->
+      <article class="craft-pillar" data-reveal>
+        <span class="craft-pillar__number">08 — Resistance</span>
+        <h3 class="craft-pillar__title">Some doors should be heavy</h3>
+        <div class="craft-pillar__essay">
+          <p>
+            Resistance is intentional friction at decision points &mdash; moments where the interface asks "are you sure?" not with a modal, but with physical weight. Swiping to delete should feel like tearing paper, not flicking a switch. The heaviness of the action communicates the weight of the consequence.
+          </p>
+          <p>
+            A door to a vault is heavy for a reason. A confirmation dialog is the digital equivalent of a heavy door, but most are weightless &mdash; just another tap. Resistance replaces words with physics.
+          </p>
+        </div>
+        <div class="craft-demo" data-cursor-hover>
+          <div class="craft-demo__resistance" id="demo-resistance">
+            <div class="resistance-track">
+              <div class="resistance-element" id="resistance-el">
+                <span class="resistance-element__label">Drag to confirm</span>
+                <span class="resistance-element__icon">&rarr;</span>
+              </div>
+              <div class="resistance-threshold" id="resistance-threshold"></div>
+            </div>
+            <div class="resistance-status" id="resistance-status"></div>
+          </div>
+          <p class="craft-demo__caption">Drag the element past the threshold. Feel it resist, pull back, demand commitment &mdash; then release with a satisfying snap.</p>
+        </div>
+      </article>
+
+      <!-- ─── 09. Silence ─── -->
+      <article class="craft-pillar" data-reveal>
+        <span class="craft-pillar__number">09 — Silence</span>
+        <h3 class="craft-pillar__title">The authored absence</h3>
+        <div class="craft-pillar__essay">
+          <p>
+            The gap in the divider. The empty about page. The pause between animations. Silence is the negative space of interaction &mdash; it gives weight to what surrounds it. An interface that never pauses never breathes. And something that doesn't breathe isn't alive.
+          </p>
+          <p>
+            Music without rests is noise. Motion without stillness is chaos. The most powerful moment in a conversation is the pause before the answer. Silence is not the absence of design &mdash; it is the most deliberate design decision of all.
+          </p>
+        </div>
+        <div class="craft-demo" data-cursor-hover>
+          <div class="craft-demo__silence" id="demo-silence">
+            <div class="silence-comparison">
+              <div class="silence-column">
+                <span class="silence-column__label">Without silence</span>
+                <div class="silence-blocks silence-blocks--continuous" id="silence-continuous">
+                  <div class="silence-block"></div>
+                  <div class="silence-block"></div>
+                  <div class="silence-block"></div>
+                  <div class="silence-block"></div>
+                  <div class="silence-block"></div>
+                </div>
+              </div>
+              <div class="silence-column">
+                <span class="silence-column__label">With silence</span>
+                <div class="silence-blocks silence-blocks--paused" id="silence-paused">
+                  <div class="silence-block"></div>
+                  <div class="silence-block"></div>
+                  <div class="silence-block"></div>
+                  <div class="silence-block"></div>
+                  <div class="silence-block"></div>
+                </div>
+              </div>
+            </div>
+            <button class="silence-play" id="silence-play" type="button">Play both</button>
+          </div>
+          <p class="craft-demo__caption">Play both sequences. One continuous, one with intentional pauses. The pauses make it feel authored, not automated.</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- CLOSING                                         -->
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <section class="craft-closing" data-reveal>
+      <div class="craft-closing__text">
+        <h2>The system is the feeling</h2>
+        <p>
+          These nine pillars are not rules. They are observations about what makes the difference between an interface you use and an interface you <em>feel</em>. Grain gives a surface its soul. Warmth sets the emotional temperature. Patina rewards return. Weight communicates importance. Friction makes actions considered. Fluidity honours continuous intent. Tactility builds trust. Resistance protects decisions. And silence gives everything else room to breathe.
+        </p>
+        <p>
+          This system lives in the work. In Letterboxd Live's spring-animated cards and haptic invite craftsmanship. In the parchment grain and cursor weight of this portfolio itself. In every interaction where I've chosen deliberate feeling over frictionless efficiency.
+        </p>
+        <p>
+          The future of interaction design is not about making things easier. It is about making things <em>matter</em>.
+        </p>
+      </div>
+    </section>
+
+    <!-- Tech note -->
+    <div style="max-width: var(--container-max); margin: var(--space-4xl) auto var(--space-2xl); padding: 0 var(--gutter);" data-reveal>
+      <p style="font-family: var(--font-mono); font-size: 0.6rem; line-height: 1.8; letter-spacing: 0.02em; color: var(--ink); opacity: 0.2; max-width: 620px;">
+        Built with vanilla HTML, CSS, and JavaScript. Spring-based physics use lerp interpolation with friction coefficients &mdash; no libraries beyond GSAP for orchestrated timelines. 3D transforms via CSS perspective and preserve-3d. Grain textures generated with SVG feTurbulence. View Transitions API for page morphs. Custom cursor with 60fps spring-following. Every interaction is hand-tuned to feel like material.
+      </p>
+    </div>
+  </main>
+
+  <footer style="background-color: #1A1A1A; color: #F0EDE6; width: 100%; padding: 3rem 1.5rem 2.5rem; display: flex; flex-direction: column; align-items: center; text-align: center;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1.5rem; width: 100%; max-width: 1200px;">
+      <div style="display: flex; gap: 2rem;">
+        <a href="https://github.com/brunohart" target="_blank" rel="noopener" style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(240, 237, 230, 0.5); transition: color 0.2s;">GitHub</a>
+        <a href="https://boxd.it/3QqON" target="_blank" rel="noopener" style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(240, 237, 230, 0.5); transition: color 0.2s;">Letterboxd</a>
+        <a href="mailto:hello@designedbybruno.net" style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(240, 237, 230, 0.5); transition: color 0.2s;">Email</a>
+      </div>
+      <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: rgba(240, 237, 230, 0.3);">&copy; 2026 Bruno Hart</p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/cursor.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/craft-demos.js"></script>
+</body>
+</html>

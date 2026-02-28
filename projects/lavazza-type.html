@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lavazza Type System — Bruno Hart</title>
+  <meta name="description" content="A parametric typeface system inspired by Lavazza espresso and William Kentridge — where coffee-themed parameters drive the form of each letter.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/base.css?v=7">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css?v=7">
+  <link rel="stylesheet" href="../css/project.css?v=7">
+
+  <meta name="view-transition" content="same-origin">
+  <style>
+    html { background-color: #F0EDE6; }
+
+    .live-type-demo {
+      position: relative;
+      width: 100%;
+      max-width: 960px;
+      aspect-ratio: 960 / 500;
+      margin: var(--space-xl) auto;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+      background: #163052;
+    }
+
+    .live-type-demo iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .param-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: var(--space-lg) 0;
+      font-size: var(--text-sm);
+    }
+
+    .param-table th {
+      text-align: left;
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--grey);
+      font-weight: 400;
+      padding: 0.6rem 0.8rem;
+      border-bottom: 1.5px solid var(--ink);
+    }
+
+    .param-table td {
+      padding: 0.6rem 0.8rem;
+      border-bottom: 1px solid rgba(26, 26, 26, 0.1);
+    }
+
+    .param-table td:first-child {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--orange);
+    }
+
+    .param-table tr:last-child td { border-bottom: none; }
+  </style>
+</head>
+<body>
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="eject-overlay" id="ejectOverlay"></div>
+
+  <header class="site-header">
+    <button class="eject-btn" id="ejectBtn" aria-label="Eject — back to archive">
+      <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+        <path d="M10 3l7 8H3l7-8zm-7 10h14v2H3v-2z"/>
+      </svg>
+      Eject
+    </button>
+    <nav>
+      <a href="../craft.html" class="underline-draw">Principles</a>
+      <a href="../work.html" class="underline-draw">Archive</a>
+      <a href="../experiments.html" class="underline-draw">Experiments</a>
+      <a href="mailto:hello@designedbybruno.net" class="underline-draw">Contact</a>
+    </nav>
+  </header>
+
+  <main class="page">
+
+    <section class="project-header">
+      <div class="project-header__top">
+        <h1 class="project-header__title">Lavazza Type System</h1>
+        <span class="project-header__year">2025</span>
+      </div>
+      <p class="project-header__subtitle">Parametric Type &middot; p5.js &middot; William Kentridge &middot; Coffee as Parameter</p>
+      <p class="project-header__intro">
+        A parametric typeface system where each letter is defined by coffee-themed parameters — crema flow, foam peaks, milk body, tilt angle. Three independent Bezier curves per glyph, colour-lerped between espresso, oat milk, and americano, animated through a three-phase interpolation that feels like cream cutting through a fresh pour.
+      </p>
+
+      <dl class="project-meta">
+        <div>
+          <dt>Medium</dt>
+          <dd>p5.js, vanilla JavaScript</dd>
+        </div>
+        <div>
+          <dt>Influence</dt>
+          <dd>Lavazza, William Kentridge, Nespresso capsule geometry</dd>
+        </div>
+        <div>
+          <dt>Context</dt>
+          <dd>MDDN 242 — Parametric Letterforms</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- Live Type System -->
+    <div class="project-hero" data-reveal>
+      <div class="live-type-demo">
+        <iframe src="../demos/lavazza-type/" title="Lavazza Type System — live demo"></iframe>
+      </div>
+    </div>
+
+    <div class="project-content">
+
+      <div class="content-block content-block--text" data-reveal>
+        <span class="label">Origin</span>
+        <h2>From espresso to alphabet</h2>
+        <p>The project started with a Lavazza capsule box and a Mubi screening of William Kentridge's <em>My Life as a Coffee Pot</em>. Kentridge's charcoal flipbook animations — imperfect, smoky, alive — suggested that type could breathe the same way. The capsule's geometry, the machine's spout arcs, and the thick creamy script on the packaging became the formal vocabulary.</p>
+        <p>Three master shapes emerged: a thick espresso-brown pour line, a soft oat-milk cream swirl, and a rich americano-black stroke. Every letter is composed from these three curves, each with independently programmable thickness, rotation, wavelength, and amplitude.</p>
+      </div>
+
+      <div class="content-block content-block--text" data-reveal>
+        <span class="label">Parameters</span>
+        <h2>Coffee as design parameter</h2>
+        <table class="param-table">
+          <thead>
+            <tr>
+              <th>Parameter</th>
+              <th>Coffee Name</th>
+              <th>Controls</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>offsetx/y</td><td>pourDistance</td><td>Distance the pour travels</td></tr>
+            <tr><td>waveL</td><td>cremaFlow</td><td>How the crema waves across the cup</td></tr>
+            <tr><td>rotate</td><td>tiltAngle</td><td>Tilt of the pitcher or portafilter</td></tr>
+            <tr><td>peaks</td><td>foamPeaks</td><td>Number of peaks in foam art</td></tr>
+            <tr><td>peakH</td><td>foamHeight</td><td>Amplitude of the foam</td></tr>
+            <tr><td>strokeWeight</td><td>milkBody</td><td>Thickness of steamed milk</td></tr>
+            <tr><td>number</td><td>brewDigit</td><td>Letter ID — like a brew order ticket</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="content-block content-block--text" data-reveal>
+        <span class="label">Interpolation</span>
+        <h2>The pour between letters</h2>
+        <p>When letters transition, they don't simply morph. They pass through a three-phase interpolation designed to feel like coffee being poured:</p>
+        <p><strong>Phase 1 (0-20%):</strong> The old letter dissolves toward a neutral "default" state — like clearing the cup.</p>
+        <p><strong>Phase 2 (20-80%):</strong> A crema blob swells across all three curves, foam height and milk body boosting in a sine wave. Three staggered droplets — espresso, oat milk, crema — leap into the letterform. A colour flash signals the blob's apex.</p>
+        <p><strong>Phase 3 (80-100%):</strong> The new letter emerges from the default, settling into its final form with a subtle 5% scale pulse — a latte art heartbeat.</p>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="https://raw.githubusercontent.com/brunohart/letterforms-brunohart/main/assets/Italiano.png" alt="Parametric type — ITALIANO">
+        <figcaption>ITALIANO — the letterforms in conversation</figcaption>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="https://raw.githubusercontent.com/brunohart/letterforms-brunohart/main/assets/Alphabet.png" alt="Full parametric alphabet">
+        <figcaption>The complete alphabet — 26 letters, each defined by coffee parameters</figcaption>
+      </div>
+
+      <div class="content-block content-block--text" data-reveal>
+        <span class="label">Colour System</span>
+        <h2>Three brews</h2>
+        <div class="metrics">
+          <div class="metric">
+            <span class="metric__value" style="color: rgb(52, 25, 14);">Espresso</span>
+            <span class="metric__label">Deep base — rgb(52, 25, 14)</span>
+          </div>
+          <div class="metric">
+            <span class="metric__value" style="color: rgb(180, 170, 150);">Oat Milk</span>
+            <span class="metric__label">Soft cream — rgb(232, 222, 203)</span>
+          </div>
+          <div class="metric">
+            <span class="metric__value" style="color: #1A1A1A;">Americano</span>
+            <span class="metric__label">Pure black — rgb(0, 0, 0)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-block content-block--text" data-reveal>
+        <a href="https://github.com/brunohart/letterforms-brunohart" target="_blank" rel="noopener" style="font-family: var(--font-mono); font-size: var(--text-sm); letter-spacing: 0.04em; color: var(--ink); border: 1.5px solid var(--ink); padding: 0.75rem 1.5rem; border-radius: 4px; text-decoration: none; display: inline-block; transition: background-color 0.2s, color 0.2s;">
+          View on GitHub &rarr;
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__links">
+      <a href="https://github.com/brunohart" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:hello@designedbybruno.net">Email</a>
+    </div>
+    <p class="site-footer__credit">&copy; 2026 Bruno Hart</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="../js/cursor.js"></script>
+  <script src="../js/animations.js"></script>
+  <script src="../js/nav.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+  (function() {
+    var ejectBtn = document.getElementById('ejectBtn');
+    var ejectOverlay = document.getElementById('ejectOverlay');
+    if (!ejectBtn || typeof gsap === 'undefined') return;
+    ejectBtn.addEventListener('click', function() {
+      gsap.to(ejectOverlay, {
+        background: 'rgba(240, 237, 230, 0.95)',
+        backdropFilter: 'blur(6px)',
+        webkitBackdropFilter: 'blur(6px)',
+        duration: 0.5,
+        ease: 'power2.inOut',
+        onComplete: function() {
+          window.location.href = '../work.html';
+        }
+      });
+      gsap.to('main', {
+        y: 30,
+        opacity: 0,
+        duration: 0.4,
+        ease: 'power2.in'
+      });
+    });
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flicks — Cinema Together — Bruno Hart</title>
+  <meta name="description" content="A product design strategy for Flicks (Vista Group) — three interconnected features that extend cinema discovery into social coordination, attendance, and reflection.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/base.css?v=7">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css?v=7">
+  <link rel="stylesheet" href="../css/project.css?v=7">
+
+  <meta name="view-transition" content="same-origin">
+  <style>
+    html { background-color: #F0EDE6; }
+
+    /* Prototype embed container */
+    .prototype-section {
+      margin: var(--space-3xl) 0;
+    }
+
+    .prototype-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-lg);
+      margin-top: var(--space-xl);
+    }
+
+    .prototype-cell {
+      text-align: center;
+    }
+
+    .prototype-frame {
+      position: relative;
+      width: 220px;
+      height: 477px;
+      margin: 0 auto;
+      overflow: hidden;
+      background: #111;
+      border-radius: 24px;
+    }
+
+    .prototype-frame iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 393px;
+      height: 852px;
+      border: none;
+      transform: scale(0.56);
+      transform-origin: top left;
+    }
+
+    .prototype-label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-top: var(--space-sm);
+    }
+
+    .prototype-hint {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--grey);
+      opacity: 0.6;
+      margin-top: 2px;
+    }
+
+    /* Full gallery embed */
+    .gallery-embed {
+      position: relative;
+      width: 100%;
+      max-width: 960px;
+      margin: var(--space-xl) auto;
+      aspect-ratio: 16 / 10;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    }
+
+    .gallery-embed iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Strategy link */
+    .strategy-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      border: 1.5px solid var(--ink);
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background-color 0.2s, color 0.2s;
+      margin-top: var(--space-lg);
+    }
+
+    .strategy-link:hover {
+      background-color: var(--ink);
+      color: var(--bg);
+    }
+
+    /* Competitive table */
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: var(--space-xl) 0;
+      font-size: var(--text-sm);
+    }
+
+    .comp-table th {
+      text-align: left;
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--grey);
+      font-weight: 400;
+      padding: 0.75rem 1rem;
+      border-bottom: 1.5px solid var(--ink);
+    }
+
+    .comp-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid rgba(26, 26, 26, 0.1);
+      color: var(--grey);
+    }
+
+    .comp-table tr:last-child td { border-bottom: none; }
+    .comp-table tr:hover td { color: var(--ink); }
+
+    .comp-table .highlight td {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .dot-full { color: #2D6A4F; }
+    .dot-half { color: var(--orange); }
+    .dot-empty { color: #C4C0B8; }
+
+    /* Journey map */
+    .journey-map {
+      display: flex;
+      gap: 0;
+      margin: var(--space-xl) 0;
+      border: 1.5px solid var(--ink);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .journey-stage {
+      flex: 1;
+      padding: 1.25rem 1rem;
+      text-align: center;
+      border-right: 1px solid rgba(26, 26, 26, 0.15);
+    }
+
+    .journey-stage:last-child { border-right: none; }
+
+    .stage-name {
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .stage-status {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.5rem;
+      border-radius: 2px;
+    }
+
+    .status-strong { color: #2D6A4F; }
+    .status-weak { color: var(--red); }
+    .status-none { color: var(--grey); }
+
+    /* Flywheel */
+    .flywheel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+      margin: var(--space-xl) 0;
+    }
+
+    .flywheel-item {
+      border: 1.5px solid rgba(26, 26, 26, 0.15);
+      border-radius: 4px;
+      padding: 1.5rem;
+    }
+
+    .flywheel-item strong {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--orange);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .flywheel-item p {
+      font-size: var(--text-sm);
+      color: var(--grey);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .prototype-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-xl);
+      }
+      .flywheel {
+        grid-template-columns: 1fr;
+      }
+      .journey-map {
+        flex-direction: column;
+      }
+      .journey-stage {
+        border-right: none;
+        border-bottom: 1px solid rgba(26, 26, 26, 0.15);
+      }
+      .journey-stage:last-child { border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="eject-overlay" id="ejectOverlay"></div>
+
+  <header class="site-header">
+    <button class="eject-btn" id="ejectBtn" aria-label="Eject — back to archive">
+      <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+        <path d="M10 3l7 8H3l7-8zm-7 10h14v2H3v-2z"/>
+      </svg>
+      Eject
+    </button>
+    <nav>
+      <a href="../craft.html" class="underline-draw">Principles</a>
+      <a href="../work.html" class="underline-draw">Archive</a>
+      <a href="../experiments.html" class="underline-draw">Experiments</a>
+      <a href="mailto:hello@designedbybruno.net" class="underline-draw">Contact</a>
+    </nav>
+  </header>
+
+  <main class="page">
+
+    <!-- Project Header -->
+    <section class="project-header">
+      <div class="project-header__top">
+        <h1 class="project-header__title">Flicks — Cinema Together</h1>
+        <span class="project-header__year">2026</span>
+      </div>
+      <p class="project-header__subtitle">Product Design &middot; Systems Strategy &middot; User Research &middot; React Prototype</p>
+      <p class="project-header__intro">
+        A product design strategy for Vista Group's Flicks platform — three interconnected features that extend cinema discovery into social coordination, group attendance, and post-viewing reflection. Research-backed, prototyped at production fidelity, and positioned within Vista's B2B cinema ecosystem.
+      </p>
+
+      <dl class="project-meta">
+        <div>
+          <dt>Role</dt>
+          <dd>Product Designer & Strategist</dd>
+        </div>
+        <div>
+          <dt>Stack</dt>
+          <dd>React 19, TypeScript, Tailwind v4, Vite</dd>
+        </div>
+        <div>
+          <dt>Methods</dt>
+          <dd>Competitive Analysis, Value Chain Mapping, Social Influence Research, Interactive Prototyping</dd>
+        </div>
+        <div>
+          <dt>Scope</dt>
+          <dd>Strategy + 9-screen interactive prototype across 3 features</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- Hero Image -->
+    <div class="project-hero" data-reveal>
+      <img src="../assets/images/flicks-hero.png" alt="Flicks Cinema Together — social cinema experience design">
+    </div>
+
+    <!-- Content -->
+    <div class="project-content">
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- THE OPPORTUNITY                                 -->
+      <!-- ═══════════════════════════════════════════════ -->
+
+      <div class="content-block content-block--text" data-reveal>
+        <span class="label">The Opportunity</span>
+        <h2>The value isn't in the screen. It's in the ecosystem around it.</h2>
+        <p>The global cinema market is projected to reach $108 billion by 2034. Gen Z attendance grew 25% in the past year. But the growth isn't driven by better projection or bigger screens — it's driven by something more fundamental: people want to be in a room together.</p>
+        <p>Cinema is no longer competing with streaming on convenience. It's competing on experience. Audiences now use social word-of-mouth as a heuristic not just to decide <em>whether</em> to watch a film, but <em>where</em> to watch it. The films that succeed theatrically are the ones that feel like events worth being present for.</p>
+        <p>Every step that leads to that moment — discovering a film, deciding to go, coordinating with friends, choosing a session, reflecting on the experience — is an act of social investment. Together these steps form an ecosystem that doesn't just support cinema attendance. It generates it.</p>
+      </div>
+
+      <div class="content-block content-block--text" data-reveal>
+        <div class="pull-quote">
+          The question isn't who will own the content. It's who will own the experience of getting there — and everything that follows.
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- FLICKS TODAY                                     -->
+      <!-- ═══════════════════════════════════════════════ -->
+
+      <div class="content-block content-block--text" data-reveal>
+        <span class="label">Flicks Today</span>
+        <h2>A strong foundation with room to grow</h2>
+        <p>Flicks has built something genuinely good. The 2025 Australian Good Design Award jury called it "a really well integrated, well considered solution to a very modern problem." App users engage 8x more frequently than web users. The core product solves two real pain points: <em>"What should I watch?"</em> and <em>"Where can I watch it?"</em></p>
+        <p>But Flicks currently ends where the most valuable part of cinema begins. The app helps users discover a film and shows them where it's playing. Then it hands them off — to a cinema's booking site, to a group chat, to whatever ad hoc coordination gets them into a seat. The moment of highest commercial value — the transition from intent to attendance — happens outside the platform.</p>
+      </div>
+
+      <div class="content-block content-block--text" data-reveal>
+        <h3>Where Flicks sits in the journey</h3>
+        <div class="journey-map">
+          <div class="journey-stage">
+            <div class="stage-name">Discovery</div>
+            <span class="stage-status status-strong">Strong</span>
+          </div>
+          <div class="journey-stage">
+            <div class="stage-name">Decision</div>
+            <span class="stage-status status-strong">Strong</span>
+          </div>
+          <div class="journey-stage">
+            <div class="stage-name">Coordination</div>
+            <span class="stage-status status-none">Missing</span>
+          </div>
+          <div class="journey-stage">
+            <div class="stage-name">Attendance</div>
+            <span class="stage-status status-weak">Partial</span>
+          </div>
+          <div class="journey-stage">
+            <div class="stage-name">Reflection</div>
+            <span class="stage-status status-none">Missing</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- THE GAP                                         -->
+      <!-- ═══════════════════════════════════════════════ -->
+
+      <div class="content-block content-block--text" data-reveal>
+        <span class="label">The Gap</span>
+        <h2>No one owns the full journey</h2>
+        <p>Cinema attendance is fundamentally a social coordination problem. A 2025 factorial survey study found that personal recommendation from close friends is the single most significant predictor of cinema attendance, regardless of genre. A separate study of 472 moviegoers found that the direct social utility of going <em>with</em> someone was a better predictor than social media FOMO or social capital.</p>
+        <p>59% of moviegoers discover films through social media. But social buzz alone doesn't convert to tickets. The conversion happens when someone acts on a friend's recommendation — and that step is where every platform drops the user.</p>
+      </div>
+
+      <div class="content-block content-block--text" data-reveal>
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Platform</th>
+              <th>Discovery</th>
+              <th>Showtimes</th>
+              <th>Ticketing</th>
+              <th>Social</th>
+              <th>Post-film</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Fandango</td><td class="dot-half">&#x25D0;</td><td class="dot-full">&#x25CF;</td><td class="dot-full">&#x25CF;</td><td class="dot-empty">&#x25CB;</td><td class="dot-empty">&#x25CB;</td></tr>
+            <tr><td>Atom Tickets</td><td class="dot-half">&#x25D0;</td><td class="dot-full">&#x25CF;</td><td class="dot-full">&#x25CF;</td><td class="dot-half">&#x25D0;</td><td class="dot-empty">&#x25CB;</td></tr>
+            <tr><td>Letterboxd</td><td class="dot-full">&#x25CF;</td><td class="dot-half">&#x25D0;</td><td class="dot-empty">&#x25CB;</td><td class="dot-full">&#x25CF;</td><td class="dot-full">&#x25CF;</td></tr>
+            <tr><td>JustWatch</td><td class="dot-full">&#x25CF;</td><td class="dot-empty">&#x25CB;</td><td class="dot-empty">&#x25CB;</td><td class="dot-empty">&#x25CB;</td><td class="dot-empty">&#x25CB;</td></tr>
+            <tr><td>IMDb</td><td class="dot-full">&#x25CF;</td><td class="dot-half">&#x25D0;</td><td class="dot-empty">&#x25CB;</td><td class="dot-empty">&#x25CB;</td><td class="dot-half">&#x25D0;</td></tr>
+            <tr class="highlight"><td><strong>Flicks (current)</strong></td><td class="dot-full">&#x25CF;</td><td class="dot-full">&#x25CF;</td><td class="dot-half">&#x25D0;</td><td class="dot-empty">&#x25CB;</td><td class="dot-empty">&#x25CB;</td></tr>
+            <tr class="highlight"><td><strong>Flicks (proposed)</strong></td><td class="dot-full">&#x25CF;</td><td class="dot-full">&#x25CF;</td><td class="dot-half">&#x25D0;</td><td class="dot-full">&#x25CF;</td><td class="dot-full">&#x25CF;</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- FEATURE 1 — SOCIAL SIGNALS                      -->
+      <!-- ═══════════════════════════════════════════════ -->
+
+      <div class="content-block content-block--text" data-reveal>
+        <span class="label">Feature 01</span>
+        <h2>Social Signals</h2>
+        <p>Surface friend interest on showtimes through subtle, non-intrusive signals. On the showtimes screen, friend avatars appear stacked beneath session time pills — making it immediately visible who's already going. A banner reading "3 friends want to see this" bridges the gap between passive browsing and group commitment.</p>
+        <p>On the film detail page, friends' interest levels appear as status tags — Going, Interested, Watchlisted — giving the user social proof before they even reach showtimes. A dedicated Friends' Sessions view answers "when and where are my friends going this week?" with a single tap to join.</p>
+        <p>The signals are ambient, not performative. They encourage coordination without requiring explicit planning.</p>
+      </div>
+
+      <div class="content-block prototype-section" data-reveal>
+        <div class="prototype-grid">
+          <div class="prototype-cell">
+            <div class="prototype-frame">
+              <iframe src="https://brunohart.github.io/flicks-case-study/app/1a?embed=true" loading="lazy" title="1A — Showtimes with social signals"></iframe>
+            </div>
+            <span class="prototype-label">1A — Showtimes</span>
+            <span class="prototype-hint">Interactive — scroll to explore</span>
+          </div>
+          <div class="prototype-cell">
+            <div class="prototype-frame">
+              <iframe src="https://brunohart.github.io/flicks-case-study/app/1b?embed=true" loading="lazy" title="1B — Film detail with social proof"></iframe>
+            </div>
+            <span class="prototype-label">1B — Film Detail</span>
+            <span class="prototype-hint">Interactive — scroll to explore</span>
+          </div>
+          <div class="prototype-cell">
+            <div class="prototype-frame">
+              <iframe src="https://brunohart.github.io/flicks-case-study/app/1c?embed=true" loading="lazy" title="1C — Friends' sessions list"></iframe>
+            </div>
+            <span class="prototype-label">1C — Friends' Sessions</span>
+            <span class="prototype-hint">Interactive — scroll to explore</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- FEATURE 2 — WHO'S IN                            -->
+      <!-- ═══════════════════════════════════════════════ -->
+
+      <div class="content-block content-block--text" data-reveal>
+        <span class="label">Feature 02</span>
+        <h2>Who's In?</h2>
+        <p>The strongest driver of cinema attendance isn't what's playing — it's who you're going with. Yet the coordination step — getting from "we should see that" to "we're going Saturday at 7" — happens entirely outside every cinema platform. It lives in group chats, fragmented across messages and compromises.</p>
+        <p>The seat selection screen highlights where friends are already sitting, with suggested adjacent seats shown as dashed outlines — turning seat choice into a social decision. An invite flow lets users search contacts and send invitations in a few taps, with smart suggestions for those who've watchlisted the film. A live RSVP tracker shows confirmed, maybe, and invited statuses at a glance.</p>
+        <p>For friends not yet on Flicks, the invitation arrives as a shareable deep link — a natural acquisition point for new users.</p>
+      </div>
+
+      <div class="content-block prototype-section" data-reveal>
+        <div class="prototype-grid">
+          <div class="prototype-cell">
+            <div class="prototype-frame">
+              <iframe src="https://brunohart.github.io/flicks-case-study/app/2a?embed=true" loading="lazy" title="2A — Seat selection with friend proximity"></iframe>
+            </div>
+            <span class="prototype-label">2A — Booking</span>
+            <span class="prototype-hint">Interactive — tap seats to select</span>
+          </div>
+          <div class="prototype-cell">
+            <div class="prototype-frame">
+              <iframe src="https://brunohart.github.io/flicks-case-study/app/2b?embed=true" loading="lazy" title="2B — Invite friends flow"></iframe>
+            </div>
+            <span class="prototype-label">2B — Invite Friends</span>
+            <span class="prototype-hint">Interactive — scroll to explore</span>
+          </div>
+          <div class="prototype-cell">
+            <div class="prototype-frame">
+              <iframe src="https://brunohart.github.io/flicks-case-study/app/2c?embed=true" loading="lazy" title="2C — RSVP tracker dashboard"></iframe>
+            </div>
+            <span class="prototype-label">2C — RSVP Tracking</span>
+            <span class="prototype-hint">Interactive — tap to send reminders</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- FEATURE 3 — QUICK CAPTURE                       -->
+      <!-- ═══════════════════════════════════════════════ -->
+
+      <div class="content-block content-block--text" data-reveal>
+        <span class="label">Feature 03</span>
+        <h2>Quick Capture</h2>
+        <p>Research found that while FoMO didn't significantly predict going to the cinema, both FoMO and bridging social capital strongly predicted sharing about the experience afterwards. People want to talk about what they've just seen — and this post-viewing energy drives further discovery for others. Theatrical releases generate significantly longer-lived social conversations than streaming releases, suggesting that communal cinema-going produces more durable cultural engagement.</p>
+        <p>Two hours after a showtime passes, a push notification arrives. Tapping "Rate it" opens an emoji-first reaction sheet — five emotion-mapped options that auto-map to a star rating, lowering cognitive load to a single tap. Reactions flow into a personal viewing diary with auto-captured context: date, cinema, who you went with.</p>
+        <p>If the user attended via a group invitation, their reaction joins a group memory. A "recommend to a friend" action feeds back into Social Signals, creating the full loop: discover, attend, react, recommend.</p>
+      </div>
+
+      <div class="content-block prototype-section" data-reveal>
+        <div class="prototype-grid">
+          <div class="prototype-cell">
+            <div class="prototype-frame">
+              <iframe src="https://brunohart.github.io/flicks-case-study/app/3a?embed=true" loading="lazy" title="3A — iOS lock screen notification"></iframe>
+            </div>
+            <span class="prototype-label">3A — Notification</span>
+            <span class="prototype-hint">Interactive — tap to explore</span>
+          </div>
+          <div class="prototype-cell">
+            <div class="prototype-frame">
+              <iframe src="https://brunohart.github.io/flicks-case-study/app/3b?embed=true" loading="lazy" title="3B — Emoji reaction flow"></iframe>
+            </div>
+            <span class="prototype-label">3B — Emoji Reaction</span>
+            <span class="prototype-hint">Interactive — select an emoji</span>
+          </div>
+          <div class="prototype-cell">
+            <div class="prototype-frame">
+              <iframe src="https://brunohart.github.io/flicks-case-study/app/3c?embed=true" loading="lazy" title="3C — Viewing diary with stats"></iframe>
+            </div>
+            <span class="prototype-label">3C — Viewing Diary</span>
+            <span class="prototype-hint">Interactive — scroll to explore</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- TRY THE PROTOTYPE                               -->
+      <!-- ═══════════════════════════════════════════════ -->
+
+      <div class="content-block content-block--text" data-reveal>
+        <span class="label">Explore</span>
+        <h2>Try the prototype</h2>
+        <p>All nine screens were built as a fully interactive React application — not static mockups. The gallery below lets you browse every screen at production fidelity.</p>
+      </div>
+
+      <div class="content-block" data-reveal>
+        <div class="gallery-embed">
+          <iframe src="https://brunohart.github.io/flicks-case-study/" loading="lazy" title="Flicks Cinema Together — Interactive Prototype Gallery"></iframe>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- THE BIGGER PICTURE                              -->
+      <!-- ═══════════════════════════════════════════════ -->
+
+      <div class="content-block content-block--text" data-reveal>
+        <span class="label">The Bigger Picture</span>
+        <h2>Why this matters for Vista</h2>
+        <p>Flicks isn't just a consumer app. It's the demand generation layer for Vista's entire B2B cinema ecosystem. Vista Group holds 46% global market share in large-circuit cinema management. 5,500+ cinemas across 116 countries run on Vista's infrastructure.</p>
+        <p>Flicks is where that infrastructure meets the consumer. The Cinema Together suite creates a specific flywheel:</p>
+      </div>
+
+      <div class="content-block" data-reveal>
+        <div class="flywheel">
+          <div class="flywheel-item">
+            <strong>Social Signals &rarr; Movio Cinema EQ</strong>
+            <p>Drive group attendance — multiplying ticket yield per intent signal. Social graph data feeds Movio's propensity algorithm and 100M+ moviegoer profiles.</p>
+          </div>
+          <div class="flywheel-item">
+            <strong>Invitations &rarr; Vista Cloud</strong>
+            <p>Drive viral growth — every invite is a potential new Flicks user. Group bookings flow through Vista Cloud's ticketing and payments infrastructure.</p>
+          </div>
+          <div class="flywheel-item">
+            <strong>Quick Capture &rarr; React + Horizon</strong>
+            <p>Extends Vista's existing React survey product to consumers. Sentiment data surfaces in Horizon dashboards for exhibitor and distributor intelligence.</p>
+          </div>
+          <div class="flywheel-item">
+            <strong>Data Feedback &rarr; Movio Media</strong>
+            <p>Social attendance patterns and post-film reactions flow to Movio Media — giving studios audience insight no competitor can match.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-block content-block--text" data-reveal>
+        <div class="pull-quote">
+          Uber didn't invent cars — it made summoning one frictionless and social. Flicks doesn't need to reinvent cinema. It needs to make going frictionless and social.
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- VISTA INTELLIGENCE                              -->
+      <!-- ═══════════════════════════════════════════════ -->
+
+      <div class="content-block content-block--text" data-reveal>
+        <span class="label">Intelligence</span>
+        <h2>The data behind the strategy</h2>
+        <p>The strategic positioning of Flicks within Vista's ecosystem was informed by deep financial analysis and value chain mapping. Vista Group's product portfolio spans the entire theatrical film value chain — from content distribution through to consumer engagement. Understanding where Flicks sits in that chain, and where it can create new value, required mapping the full landscape.</p>
+      </div>
+
+      <div class="content-block" data-reveal>
+        <h3 style="font-family: var(--font-display); font-size: var(--text-lg); font-weight: 600; margin-bottom: var(--space-md);">Film Industry Value Chain</h3>
+        <div class="gallery-embed" style="aspect-ratio: 16 / 9;">
+          <iframe src="https://brunohart.github.io/vista-intelligence/value-chain-diagram.html" loading="lazy" title="Vista Group — Film Industry Value Chain Analysis"></iframe>
+        </div>
+      </div>
+
+      <div class="content-block" data-reveal>
+        <h3 style="font-family: var(--font-display); font-size: var(--text-lg); font-weight: 600; margin-bottom: var(--space-md);">Financial Growth Analysis</h3>
+        <div class="gallery-embed" style="aspect-ratio: 16 / 10; max-width: 100%;">
+          <iframe src="https://brunohart.github.io/vista-intelligence/04-growth-charts.html" loading="lazy" title="Vista Group — Financial Growth Charts"></iframe>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- TECHNICAL APPROACH                              -->
+      <!-- ═══════════════════════════════════════════════ -->
+
+      <div class="content-block content-block--text" data-reveal>
+        <span class="label">Technical Approach</span>
+        <h2>Built as a real application</h2>
+        <p>The prototype was built as a full React 19 application with TypeScript, Tailwind v4, and Vite 6 — not Figma screens or static mockups. Nine screens across three features, rendered inside a pixel-accurate iPhone 15 Pro frame with dynamic island, iOS status bar, and tab bar.</p>
+        <p>Every component — from the seat map with friend proximity highlighting to the emoji reaction sheet with auto-mapped star ratings — is a real, interactive interface built to demonstrate not just the concept but the feel of the interactions at production fidelity.</p>
+      </div>
+
+      <div class="content-block content-block--text" data-reveal>
+        <div class="metrics">
+          <div class="metric">
+            <span class="metric__value">9</span>
+            <span class="metric__label">Interactive Screens</span>
+          </div>
+          <div class="metric">
+            <span class="metric__value">3</span>
+            <span class="metric__label">Interconnected Features</span>
+          </div>
+          <div class="metric">
+            <span class="metric__value">React 19</span>
+            <span class="metric__label">TypeScript + Tailwind</span>
+          </div>
+          <div class="metric">
+            <span class="metric__value">12</span>
+            <span class="metric__label">Research Sources</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- STRATEGY DOCUMENT                               -->
+      <!-- ═══════════════════════════════════════════════ -->
+
+      <div class="content-block content-block--text" data-reveal>
+        <span class="label">Deep Dive</span>
+        <h2>Read the full strategy</h2>
+        <p>The complete research-backed strategy document — including market analysis, competitive positioning, value chain mapping, and detailed feature rationale with cited sources.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: var(--space-md); margin-top: var(--space-lg);">
+          <a href="https://brunohart.github.io/flicks-rationale-for-case-study/" target="_blank" rel="noopener" class="strategy-link">
+            From Discovery to Ritual &rarr;
+          </a>
+          <a href="https://brunohart.github.io/vista-intelligence/" target="_blank" rel="noopener" class="strategy-link">
+            Vista Intelligence Dashboard &rarr;
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__links">
+      <a href="https://github.com/brunohart" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:hello@designedbybruno.net">Email</a>
+    </div>
+    <p class="site-footer__credit">&copy; 2026 Bruno Hart</p>
+  </footer>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Scripts -->
+  <script src="../js/cursor.js"></script>
+  <script src="../js/animations.js"></script>
+  <script src="../js/nav.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+  (function() {
+    var ejectBtn = document.getElementById('ejectBtn');
+    var ejectOverlay = document.getElementById('ejectOverlay');
+    if (!ejectBtn || typeof gsap === 'undefined') return;
+    ejectBtn.addEventListener('click', function() {
+      gsap.to(ejectOverlay, {
+        background: 'rgba(240, 237, 230, 0.95)',
+        backdropFilter: 'blur(6px)',
+        webkitBackdropFilter: 'blur(6px)',
+        duration: 0.5,
+        ease: 'power2.inOut',
+        onComplete: function() {
+          window.location.href = '../work.html';
+        }
+      });
+      gsap.to('main', {
+        y: 30,
+        opacity: 0,
+        duration: 0.4,
+        ease: 'power2.in'
+      });
+    });
+  })();
+  </script>
+</body>
+</html>

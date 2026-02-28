@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VUW Course Selection — Bruno Hart</title>
+  <meta name="description" content="Redesigning Victoria University's course selection process through systems thinking, stakeholder analysis, and a genetic algorithm-powered recommendation system.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/base.css?v=7">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css?v=7">
+  <link rel="stylesheet" href="../css/project.css?v=7">
+
+  <meta name="view-transition" content="same-origin">
+  <style>html { background-color: #F0EDE6; }</style>
+</head>
+<body>
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="eject-overlay" id="ejectOverlay"></div>
+
+  <header class="site-header">
+    <button class="eject-btn" id="ejectBtn" aria-label="Eject — back to archive">
+      <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+        <path d="M10 3l7 8H3l7-8zm-7 10h14v2H3v-2z"/>
+      </svg>
+      Eject
+    </button>
+    <nav>
+      <a href="../craft.html" class="underline-draw">Principles</a>
+      <a href="../work.html" class="underline-draw">Archive</a>
+      <a href="../experiments.html" class="underline-draw">Experiments</a>
+      <a href="mailto:hello@designedbybruno.net" class="underline-draw">Contact</a>
+    </nav>
+  </header>
+
+  <main class="page">
+
+    <section class="project-header">
+      <div class="project-header__top">
+        <h1 class="project-header__title">VUW Course Selection</h1>
+        <span class="project-header__year">2023</span>
+      </div>
+      <p class="project-header__subtitle">Design Strategy &middot; Systems Thinking &middot; Information Architecture &middot; Figma Prototype</p>
+      <p class="project-header__intro">
+        The Victoria University of Wellington course selection and enrolments process is scattered, uninformative, time-consuming, inflexible, and fundamentally a distressing process for students to navigate. This project examined structural friction within the university's course selection ecosystem — identifying breakdowns in discoverability, information hierarchy, and user mental models — and proposed a revolutionary personalised recommendation system powered by a genetic algorithm.
+      </p>
+
+      <dl class="project-meta">
+        <div>
+          <dt>Role</dt>
+          <dd>Lead Designer</dd>
+        </div>
+        <div>
+          <dt>Methods</dt>
+          <dd>Interviews, Affinity Mapping, IA Audit, Mental Model Mapping, Iterative Prototyping</dd>
+        </div>
+        <div>
+          <dt>Tools</dt>
+          <dd>Figma (High-Fidelity Prototype), Photoshop, Miro</dd>
+        </div>
+        <div>
+          <dt>Outcome</dt>
+          <dd>Figma prototype with genetic algorithm personalisation and gamified discovery</dd>
+        </div>
+      </dl>
+    </section>
+
+    <div class="project-hero" data-reveal>
+      <img src="../assets/VUW-cover-image.png" alt="VUW Course Selection redesign — design strategy and implementation">
+    </div>
+
+    <div class="project-content">
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- THE PROBLEM                                     -->
+      <!-- ═══════════════════════════════════════════════ -->
+
+      <div class="content-block content-block--text" data-reveal>
+        <span class="label">The Problem</span>
+        <h2>A System That Works Against Its Users</h2>
+        <p>
+          VUW's course selection process is scattered across siloed systems with no connective tissue. Course information, discoverability, guidance, interrelationships, and application each exist in separate locations — forcing students to become their own archive, organiser, timetable, and counsellor. No information is saved, no recommendations are offered, and no state persists between sessions.
+        </p>
+        <p>
+          The information architecture reveals critical clashes between user mental models and system structure. Students fundamentally "don't even know what website the enrolment process happens on." There is a consistent pattern of mismatching information between pages — course descriptions are vague, the search function is buried, and students are forced to refer to physical handouts given on campus or use tools that feel like "some ancient portal from 2010."
+        </p>
+        <p>
+          For international students, these barriers compound: applying from a foreign country, speaking a foreign language, navigating unfamiliar university tools over mobile as they cannot access a campus computer. If the system fails the outlier, it fails everyone.
+        </p>
+      </div>
+
+      <div class="pull-quote" data-reveal>
+        <blockquote>"The student must act as the archive, organiser, timetable, and counsellor."</blockquote>
+        <cite>Research Finding — VUW Course Selection</cite>
+      </div>
+
+      <div class="content-block content-block--text" data-reveal>
+        <h3>Research Methods</h3>
+        <ul class="methods-grid">
+          <li>Stakeholder Analysis</li>
+          <li>Information Architecture Audit</li>
+          <li>Mental Model Mapping</li>
+          <li>Semi-Structured Interviews</li>
+          <li>Affinity Mapping</li>
+          <li>Literature Review</li>
+          <li>Heuristic Evaluation</li>
+          <li>Competitive Analysis</li>
+        </ul>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/vuw-project1-p1.png" alt="The Victoria University of Wellington course selection process is scattered, uninformative, time-consuming, inflexible and fundamentally a distressing process">
+        <figcaption>Problem Statement — the five systemic failures in VUW's course selection: scattered, uninformative, time-consuming, inflexible, distressing</figcaption>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/vuw-project1-p2.png" alt="Affinity mapping from three interviewees — clustering pain points and insights">
+        <figcaption>Affinity Mapping — clustering insights from three student interviews, revealing shared pain points around discoverability, inaccessibility, and combative information architecture</figcaption>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/vuw-project1-p5.png" alt="Primary Research — interview findings on lack of visibility, inaccessibility, and combative navigation">
+        <figcaption>Primary Research — three overarching themes: lack of visibility ("courses are hard to find"), inaccessibility ("don't even know what website the enrolment process happens on"), and combative navigation</figcaption>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- DEFINE                                          -->
+      <!-- ═══════════════════════════════════════════════ -->
+
+      <div class="content-block content-block--text" data-reveal>
+        <span class="label">Define</span>
+        <h2>Designing for the Outlier</h2>
+        <p>
+          The chosen stakeholder is a first-year international student who needs to use the university website as their primary portal for navigating potential degrees, current interests, and course requirements. They are unfamiliar with university tools and portals, currently still in high school, applying from a foreign country, speaking a foreign language, and using the university tools over mobile as they cannot access a campus computer.
+        </p>
+        <p>
+          By designing for this outlier — the user facing every compounded barrier simultaneously — the system necessarily works for everyone. The design values that emerged were clear: output-driven and focused, tangible, timeless. If the design should reflect any value, it should be <em>output-driven</em> — moving the student from nothing selected to a clear, confident course structure.
+        </p>
+      </div>
+
+      <!-- Systems Analysis PDF Embed -->
+      <div class="pdf-viewer" data-reveal>
+        <span class="pdf-viewer__label">Systems Analysis</span>
+        <h3 class="pdf-viewer__title">VUW Course Selection — Systems Analysis</h3>
+        <p class="pdf-viewer__description">The systems-level analysis document examining five breakdowns in VUW's course selection ecosystem — course information, discoverability, guidance, interrelationships, and application — with stakeholder definition and design values.</p>
+        <iframe class="pdf-viewer__frame" src="../assets/pdfs/vuw-systems-analysis.pdf" title="Systems Analysis — VUW Course Selection"></iframe>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- DESIGN                                          -->
+      <!-- ═══════════════════════════════════════════════ -->
+
+      <div class="content-block content-block--text" data-reveal>
+        <span class="label">Design</span>
+        <h2>A Revolutionary Course Selection System</h2>
+        <p>
+          The redesigned system introduces a personalised recommendation engine powered by a genetic algorithm on the backend. By mapping the data points students put into their degree dashboard and profile over time, the system creates a dynamic, fluid design that grows with the student — taking away barriers for international and new students, and giving returning students a valuable toolset to build and synthesise courses with an eye for what VUW can provide them.
+        </p>
+        <p>
+          Inspired by ANU's lineage tree design and visual interactive hybrid recommender systems (Bostandjiev et al., 2012), the prototype introduces gamified selection where students visually manipulate their inputs using a swiping interaction — flipping the paradigm from browsing everything to guided, interest-driven discovery. The design uses a graphically balanced display that centralises the information hierarchy, making it easy for students from different backgrounds to navigate.
+        </p>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/vuw-project2-p4.png" alt="Typography system — Outfit typeface selection for global readability and cultural sensitivity">
+        <figcaption>Typography System — the Outfit typeface chosen for global scalability, readability across multiple languages, and a friendly professionalism that speaks to VUW's values</figcaption>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/vuw-project2-p5.png" alt="Colour system — VUW green palette maintaining brand connection while differentiating the new tool">
+        <figcaption>Colour System — palette drawn from VUW's landing page to maintain brand connection, with type as the primary differentiator for the new tool</figcaption>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/vuw-project2-p8.png" alt="Early concept sketches — hand-drawn wireframes exploring onboarding and course discovery flows">
+        <figcaption>Early Concept Sketches — hand-drawn explorations of onboarding flows, dashboard layouts, and gamified course discovery interactions</figcaption>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/vuw-project2-p10.png" alt="Post-class consultation — Spotify onboarding inspiration, Netflix recommendations, swipe interactions">
+        <figcaption>Post-Class Consultation — exploring interaction models from Spotify onboarding and Netflix recommendations applied to course discovery</figcaption>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/vuw-project2-p15.png" alt="Notes and observations — graphically balanced display centralising information hierarchy">
+        <figcaption>Notes & Observations — annotated wireframes exploring degree dashboard, progressive disclosure, and how the genetic algorithm adapts the experience over time</figcaption>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- TESTING & ITERATION                             -->
+      <!-- ═══════════════════════════════════════════════ -->
+
+      <div class="content-block content-block--text" data-reveal>
+        <span class="label">Testing</span>
+        <h2>Iterative Validation</h2>
+        <p>
+          Through an iterative approach of interviewing 10 different students at varying stages of the prototyping process, the design pivoted from tailoring the student to the university system toward synthesising the university's scattered information into a seamless experience. This inverse relationship — allowing the student to filter the university to tailor their education experience — emerged directly from user feedback.
+        </p>
+        <p>
+          Wireframe feedback sessions with 4 participants acting as the defined user persona surfaced critical insights: calls to action needed prominence, the degree dashboard hierarchy required restructuring, and the gamified swipe interaction for course discovery resonated strongly but needed clearer mental model framing.
+        </p>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/vuw-project2-p6.png" alt="User feedback situation — iterative interview findings reshaping the design direction">
+        <figcaption>User Feedback — how interviewing 10 students across prototyping stages reshaped the fundamental design direction from university-centric to student-centric</figcaption>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/vuw-project2-p12.png" alt="Wireframe 1 feedback — detailed participant responses and design iteration notes">
+        <figcaption>Wireframe Feedback — raw participant responses driving iteration: "White negative space", "Call to action needs to be bigger", "Make it sound cuter and more fun"</figcaption>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/vuw-project2-p14.png" alt="Wireframe 2 feedback — 4 participants testing with user personas, showing screens and user quotes">
+        <figcaption>Wireframe 2 Testing — four participants acting as the defined user persona, with annotated screens showing interaction feedback and design pivots</figcaption>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/vuw-project2-p20.png" alt="Visual Interactive Inspiration — reference analysis of TikTok, Spotify, Duolingo and recommender systems">
+        <figcaption>Visual Interactive Inspiration — analysing recommender systems from TikTok, Spotify, and Duolingo to inform the genetic algorithm-powered discovery flow</figcaption>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- OUTCOME                                         -->
+      <!-- ═══════════════════════════════════════════════ -->
+
+      <div class="content-block content-block--text" data-reveal>
+        <span class="label">Outcome</span>
+        <h2>Blending Personality with Education</h2>
+        <p>
+          The final high-fidelity Figma prototype demonstrates the complete interaction model — from initial interest declaration through gamified course swiping to degree dashboard and enrolment confirmation. The genetic algorithm backend maps student inputs to personalised degree structures that grow and adapt over time.
+        </p>
+        <p>
+          The outcome flips the entire approach to course selection on its head: the student, not the university, is at the centre. By incorporating a genetic algorithm and mapping student data points into their degree dashboard, the system creates a dynamic and fluid design that takes away large barriers for international and new students while giving returning students a valuable toolset. The result is an iconic interaction design that blends student personality with education — a tailored experience delivering real-world value to all stakeholders.
+        </p>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/vuw-project2-p24.png" alt="High-fidelity Figma prototype — complete flow architecture with interconnected screens">
+        <figcaption>High-Fidelity Prototype — the complete Figma prototype flow architecture spanning onboarding, degree dashboard, course discovery, and enrolment</figcaption>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/vuw-project2-p22.png" alt="Final round of user testing — participant quotes: 'I love this', 'Why is the Uni not already doing this?'">
+        <figcaption>Final User Testing — "I love this", "Why is the Uni not already doing this?", "I wish I had this when I was a year 13", "This is one of the coolest things I've seen from a Uni website"</figcaption>
+      </div>
+
+      <div class="content-block content-block--image" data-reveal>
+        <img src="../assets/images/vuw-project2-p3.png" alt="Conclusion — flipping course selection from university-centric to student-centric">
+        <figcaption>Conclusion — "a massive opportunity to create a revolutionary system of course selection that engages students from the first year onwards"</figcaption>
+      </div>
+
+      <div class="content-block" data-reveal>
+        <span class="label">Interactive Prototype</span>
+        <h2>Explore the prototype</h2>
+        <div class="video-embed">
+          <div class="video-embed__wrap">
+            <iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://embed.figma.com/proto/CamObSE0RxxoxhihFWoCRy/Wireframe-IXXN201-P2?page-id=115%3A328&node-id=116-342&starting-point-node-id=116%3A342&embed-host=share" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__links">
+      <a href="https://github.com/brunohart" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:hello@designedbybruno.net">Email</a>
+    </div>
+    <p class="site-footer__credit">&copy; 2026 Bruno Hart</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="../js/cursor.js"></script>
+  <script src="../js/animations.js"></script>
+  <script src="../js/nav.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+  (function() {
+    var ejectBtn = document.getElementById('ejectBtn');
+    var ejectOverlay = document.getElementById('ejectOverlay');
+    if (!ejectBtn || typeof gsap === 'undefined') return;
+    ejectBtn.addEventListener('click', function() {
+      gsap.to(ejectOverlay, {
+        background: 'rgba(240, 237, 230, 0.95)',
+        backdropFilter: 'blur(6px)',
+        webkitBackdropFilter: 'blur(6px)',
+        duration: 0.5,
+        ease: 'power2.inOut',
+        onComplete: function() {
+          window.location.href = '../work.html';
+        }
+      });
+      gsap.to('main', {
+        y: 30,
+        opacity: 0,
+        duration: 0.4,
+        ease: 'power2.in'
+      });
+    });
+  })();
+  </script>
+</body>
+</html>
