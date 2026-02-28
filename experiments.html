@@ -495,9 +495,11 @@
       const pos = getPointerPos(e);
       const deskRect = desk.getBoundingClientRect();
       const p = activePaper._physics;
+      const pw = activePaper.offsetWidth;
+      const ph = activePaper.offsetHeight;
 
-      const newX = pos.x - deskRect.left - dragOffsetX;
-      const newY = pos.y - deskRect.top - dragOffsetY;
+      var newX = pos.x - deskRect.left - dragOffsetX;
+      var newY = pos.y - deskRect.top - dragOffsetY;
 
       // Velocity tracking
       p.vx = (pos.x - prevMouseX) * 0.6;
@@ -509,6 +511,17 @@
       if (Math.abs(newX - p.x) > 3 || Math.abs(newY - p.y) > 3) {
         p.wasDragged = true;
       }
+
+      // Rubber-band at boundaries: allow slight overshoot but resist
+      var minX = -pw * 0.3;
+      var maxX = deskRect.width - pw * 0.7;
+      var minY = -ph * 0.3;
+      var maxY = desk.scrollHeight - ph * 0.7;
+
+      if (newX < minX) newX = minX + (newX - minX) * 0.15;
+      else if (newX > maxX) newX = maxX + (newX - maxX) * 0.15;
+      if (newY < minY) newY = minY + (newY - minY) * 0.15;
+      else if (newY > maxY) newY = maxY + (newY - maxY) * 0.15;
 
       p.targetX = newX;
       p.targetY = newY;
@@ -535,7 +548,34 @@
       const paper = activePaper;
       const settleRotation = p.rotation + clamp(p.vx * 0.3, -5, 5);
 
-      if (!prefersReducedMotion) {
+      // Snap back into bounds if released outside
+      const deskRect = desk.getBoundingClientRect();
+      const pw = paper.offsetWidth;
+      const ph = paper.offsetHeight;
+      var snapX = clamp(p.x, 0, deskRect.width - pw);
+      var snapY = clamp(p.y, 0, desk.scrollHeight - ph);
+      var needsSnap = (snapX !== p.x || snapY !== p.y);
+
+      if (needsSnap) {
+        p.vx = 0;
+        p.vy = 0;
+        p.x = snapX;
+        p.y = snapY;
+        p.targetX = snapX;
+        p.targetY = snapY;
+        gsap.to(paper, {
+          left: snapX,
+          top: snapY,
+          rotation: settleRotation,
+          scale: 1,
+          duration: 0.5,
+          ease: 'elastic.out(0.6, 0.4)',
+          onComplete: function() {
+            p.rotation = settleRotation;
+            paper.style.transform = 'rotate(' + settleRotation + 'deg) scale(1)';
+          }
+        });
+      } else if (!prefersReducedMotion) {
         gsap.to(paper, {
           rotation: settleRotation,
           scale: 1,
