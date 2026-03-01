@@ -3,7 +3,8 @@
   "trailingSlash": false,
   "rewrites": [
     { "source": "/", "destination": "/about.html" },
-    { "source": "/home", "destination": "/index.html" }
+    { "source": "/demos/braun-clock", "destination": "/demos/braun-clock/index.html" },
+    { "source": "/demos/lavazza-type", "destination": "/demos/lavazza-type/index.html" }
   ],
   "headers": [
     {
