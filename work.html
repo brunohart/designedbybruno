@@ -317,6 +317,10 @@
       filter: contrast(1.08) saturate(0.8);
     }
 
+    .dvd__cover-image--analog {
+      filter: contrast(1.12) saturate(0.55) brightness(0.97);
+    }
+
     .dvd__cover-info {
       padding: 16px 18px;
     }
@@ -461,6 +465,16 @@
       pointer-events: auto;
     }
 
+    /* ─── Tablet ─── */
+    @media (max-width: 1024px) and (min-width: 769px) {
+      .dvd { height: 320px; }
+      .dvd__case { height: 320px; }
+      .dvd__spine { height: 320px; }
+      .dvd__front { height: 320px; }
+      .dvd__cover-image { height: 180px; }
+      .dvd__disc { width: 100px; height: 100px; margin-top: -50px; margin-left: 60px; }
+    }
+
     /* ─── Mobile ─── */
     @media (max-width: 768px) {
       .player { display: none; }
@@ -505,6 +519,13 @@
 
       .dvd__cover-image { height: 200px; }
       .dvd__disc { display: none; }
+
+      /* Show play button on mobile since no hover */
+      .dvd__play {
+        opacity: 1;
+        transform: scale(1);
+        pointer-events: auto;
+      }
     }
   </style>
 </head>
@@ -589,7 +610,7 @@
                 <span class="dvd__spine-accent" style="background: var(--blue);"></span>
               </div>
               <div class="dvd__front">
-                <img class="dvd__cover-image" src="assets/images/flicks-hero-parchment.png" alt="Flicks">
+                <img class="dvd__cover-image dvd__cover-image--analog" src="assets/images/flicks-hero-parchment.png" alt="Flicks">
                 <div class="dvd__cover-info">
                   <span class="dvd__cover-number">Collection 002</span>
                   <h3 class="dvd__cover-title">Flicks &mdash; Cinema Together</h3>
@@ -706,6 +727,13 @@
     </div>
 
     </section>
+
+    <div style="max-width: var(--container-max); margin: 0 auto; padding: var(--space-xl) var(--gutter) var(--space-3xl); border-top: 1px solid rgba(26, 26, 26, 0.08);">
+      <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.04em; line-height: 1.8; color: var(--grey); max-width: 560px;">
+        This archive is inspired by the Criterion Collection — the idea that work deserves the same care in presentation as it received in creation. A great shelf says something about the person. Each project here is a disc worth pulling out, examining, and playing.
+      </p>
+    </div>
+
   </main>
 
   <footer style="background-color: #1A1A1A; color: #F0EDE6; width: 100%; padding: 3rem 1.5rem 2.5rem; display: flex; flex-direction: column; align-items: center; text-align: center;">

@@ -117,6 +117,12 @@
 .mb-2xl { margin-bottom: var(--space-2xl); }
 
 /* ─── Responsive ─── */
+@media (max-width: 1024px) {
+  .site-header nav {
+    gap: var(--space-lg);
+  }
+}
+
 @media (max-width: 768px) {
   .grid--2,
   .grid--3,
@@ -129,6 +135,10 @@
   }
 
   .site-header nav {
-    gap: var(--space-lg);
+    gap: var(--space-md);
+  }
+
+  .site-header nav a {
+    font-size: 0.6rem;
   }
 }

@@ -51,6 +51,15 @@
   filter: contrast(1) saturate(1);
 }
 
+/* Extra analog treatment — heavier grain, desaturation for AI-generated covers */
+.project-card__image--analog {
+  filter: contrast(1.12) saturate(0.55) brightness(0.97);
+}
+
+.project-card:hover .project-card__image--analog {
+  filter: contrast(1.04) saturate(0.7);
+}
+
 /* Rauschenberg: color bleed — a semi-transparent block that peeks out behind the image */
 .project-card__image-wrap::after {
   content: '';
