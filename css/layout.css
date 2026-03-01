@@ -134,11 +134,23 @@
     padding-block: var(--space-2xl);
   }
 
+  /* Stack header: logo left, nav right-aligned below */
+  .site-header {
+    flex-wrap: wrap;
+    gap: var(--space-xs) 0;
+    padding: var(--space-md) var(--gutter);
+  }
+
+  .site-header .logo {
+    width: 100%;
+    font-size: 0.75rem;
+  }
+
   .site-header nav {
     gap: var(--space-md);
   }
 
   .site-header nav a {
-    font-size: 0.6rem;
+    font-size: 0.55rem;
   }
 }

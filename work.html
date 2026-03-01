@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/base.css?v=7">
-  <link rel="stylesheet" href="css/layout.css?v=2">
+  <link rel="stylesheet" href="css/layout.css?v=3">
   <link rel="stylesheet" href="css/components.css?v=8">
 
   <meta name="view-transition" content="same-origin">
@@ -477,7 +477,9 @@
 
     /* ─── Mobile — scaled shelf, not stacked ─── */
     @media (max-width: 768px) {
-      .player { display: none; }
+      .player__unit { padding: 10px 16px; gap: 10px; }
+      .player__label { font-size: 0.45rem; }
+      .player__eject { width: 16px; height: 16px; }
 
       .dvd { height: 240px; }
       .dvd__case { width: 26px; height: 240px; }
